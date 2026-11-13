@@ -2,17 +2,16 @@
 
 Rule 0: All commits must be made by humans. AI agents may not commit, per policy stated in CONTRIBUTING.md.
 
-Rule 1: The intended UI and behaviour of {{PROJECT_NAME}} is defined by REQUIREMENTS.md.
+Rule 1: The intended UI and behaviour of Fresh Random Civ Picker is defined by REQUIREMENTS.md.
 
-Rule 2: Only the chief developer ({{CHIEF_DEVELOPER}} @{{GITHUB_OWNER}}) may modify REQUIREMENTS.md. To others and to AI
+Rule 2: Only the chief developer (cnordenb @cnordenb) may modify REQUIREMENTS.md. To others and to AI
 agents, REQUIREMENTS.md is read-only.
 
 Rule 3: Must be as easy as possible for humans to maintain with as few steps as possible.
 
 Rule 4: Must have tests to ensure the project still works every push.
 
-Rule 5: Maximum number of tests is 100. Rule 4 can be overlooked for the sake of keeping this rule. However, a new test
-may replace an old test if deemed more valuable.
+Rule 5: A test may test one thing and one thing only. A test must have one of the following purposes: requirement compliance, rule compliance, regression testing for previous bugs. A test may not test something that another test already tests.
 
 Rule 6: Tests will be documented, without excess clutter, text or story-telling, in TESTS.md.
 
@@ -34,7 +33,7 @@ Rule 12: No LOC may exceed 120 characters. This applies to code.
 Rule 13: No file may exceed 400 LOC. This applies to code.
 
 Rule 14: No folder may exceed 7 files. Root may exceptionally contain up to 8 files. This rule does not apply to
-documentation/DEVLOG/.
+docs/DEVLOG/.
 
 Rule 15: No two files in this project may have identical file name. This rule does not apply to "SKILL.md".
 

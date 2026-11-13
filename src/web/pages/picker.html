@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fresh Random Civ Picker</title>
+<meta name="description" content="Draw a fresh random civilisation for Age of Empires II. Every enabled civ will be
+drawn once before any civ repeats.">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="styles/parchment.css">
+<link rel="stylesheet" href="styles/tabs.css">
+<link rel="stylesheet" href="styles/dialogs.css">
+<link rel="stylesheet" href="styles/desktop.css">
+<link rel="stylesheet" href="styles/history.css">
+<link rel="stylesheet" href="styles/phone.css">
+<link rel="preload" href="assets/data.json" as="fetch" crossorigin>
+</head>
+<body>
+<noscript><p class="noscript">Fresh Random Civ Picker needs JavaScript.</p></noscript>
+<p class="site-title desk">frcp.net</p>
+
+<main id="app">
+  <div class="window">
+    <div class="titlebar"><h1><span class="app-icon"></span>Fresh Random Civ Picker</h1><button type="button"
+      class="dlg-x" id="closeBtn" aria-label="Close">✕</button></div>
+
+    <nav class="menubar" id="menubar" aria-label="Main menu">
+      <div class="menu">
+        <button type="button" class="menu-title" aria-expanded="false" aria-controls="menu-file">File</button>
+        <div class="menu-list" id="menu-file" role="menu" hidden>
+          <button type="button" role="menuitem" data-act="copyLink"><span>Copy Share Link</span><kbd
+            data-key="copyLink"></kbd></button>
+          <button type="button" role="menuitem" data-act="share"><span>Share ...</span><kbd></kbd></button>
+          <button type="button" role="menuitem" data-act="openLink"><span>Open Link ...</span><kbd
+            data-key="openLink"></kbd></button>
+          <hr>
+          <button type="button" role="menuitem" data-act="savePreset"><span>Save Preset ...</span><kbd
+            data-key="savePreset"></kbd></button>
+          <button type="button" role="menuitem" data-act="loadPreset"><span>Load Preset ...</span><kbd
+            data-key="loadPreset"></kbd></button>
+          <hr>
+          <button type="button" role="menuitem" data-act="quicksave"><span>Quicksave</span><kbd
+            data-key="quicksave"></kbd></button>
+          <button type="button" role="menuitem" data-act="quickload"><span>Quickload</span><kbd
+            data-key="quickload"></kbd></button>
+          <hr>
+          <button type="button" role="menuitem" data-act="options"><span>Options ...</span><kbd
+            data-key="options"></kbd></button>
+        </div>
+      </div>
+      <div class="menu">
+        <button type="button" class="menu-title" aria-expanded="false" aria-controls="menu-lobbies">Lobbies</button>
+        <div class="menu-list" id="menu-lobbies" role="menu" hidden>
+          <button type="button" role="menuitem" data-act="lobby"><span>Join Lobby ...</span><kbd
+            data-key="lobby"></kbd></button>
+          <a role="menuitem" href="https://www.aoe2insights.com/lobbies/" target="_blank"
+            rel="noopener"><span>AoE2 Insights ...</span><kbd></kbd></a>
+          <a role="menuitem" href="https://aoe2recs.com/" target="_blank"
+            rel="noopener"><span>Spectator Dashboard ...</span><kbd></kbd></a>
+        </div>
+      </div>
+      <div class="menu">
+        <button type="button" class="menu-title" aria-expanded="false" aria-controls="menu-civs">Civs</button>
+        <div class="menu-list" id="menu-civs" role="menu" hidden>
+          <button type="button" role="menuitem" data-act="undo"><span>Undo</span><kbd data-key="undo"></kbd></button>
+          <button type="button" role="menuitem" data-act="redo"><span>Redo</span><kbd data-key="redo"></kbd></button>
+          <button type="button" role="menuitem" data-act="techtree"><span>Tech Tree ...</span><kbd
+            data-key="techtree"></kbd></button>
+        </div>
+      </div>
+      <div class="menu">
+        <button type="button" class="menu-title" aria-expanded="false" aria-controls="menu-game">Game</button>
+        <div class="menu-list" id="menu-game" role="menu" hidden>
+          <a role="menuitem" href="https://store.steampowered.com/app/813780/Age_of_Empires_II_Definitive_Edition/"
+            target="_blank" rel="noopener"><span>Definitive Edition on Steam ...</span><kbd></kbd></a>
+          <a role="menuitem"
+            href="https://www.xbox.com/games/store/age-of-empires-ii-definitive-edition/9N42SSSX2MTG/0010"
+            target="_blank" rel="noopener"><span>Definitive Edition on Xbox ...</span><kbd></kbd></a>
+          <a role="menuitem" href="https://store.steampowered.com/app/221380/Age_of_Empires_II_Retired/" target="_blank"
+            rel="noopener"><span>HD Edition (Retired) on Steam ...</span><kbd></kbd></a>
+          <a role="menuitem" href="https://www.voobly.com/games/view/Age-of-Empires-II-The-Conquerors" target="_blank"
+            rel="noopener"><span>Voobly ...</span><kbd></kbd></a>
+        </div>
+      </div>
+      <div class="menu">
+        <button type="button" class="menu-title" aria-expanded="false" aria-controls="menu-frcp">FRCP</button>
+        <div class="menu-list" id="menu-frcp" role="menu" hidden>
+          <a role="menuitem" href="simple/" id="simpleLink"><span>Simple Mode ...</span><kbd></kbd></a>
+          <a role="menuitem" href="https://civexplorer.net/" target="_blank"
+            rel="noopener"><span>Civ Explorer ...</span><kbd></kbd></a>
+          <a role="menuitem" href="https://github.com/cnordenb/frcp_html" target="_blank"
+            rel="noopener"><span>GitHub Repository ...</span><kbd></kbd></a>
+          <a role="menuitem" href="https://github.com/cnordenb/Fresh-Random-Civ-Picker_GUI/releases" target="_blank"
+            rel="noopener"><span>Desktop Version ...</span><kbd></kbd></a>
+          <a role="menuitem" href="https://discord.gg/rcFqrBdVUN" target="_blank"
+            rel="noopener"><span>Discord Server ...</span><kbd></kbd></a>
+        </div>
+      </div>
+      <div class="menu">
+        <button type="button" class="menu-title" aria-expanded="false" aria-controls="menu-help">Help</button>
+        <div class="menu-list" id="menu-help" role="menu" hidden>
+          <button type="button" role="menuitem" class="simple" data-act="help"><span>Help ...</span><kbd></kbd></button>
+          <button type="button" role="menuitem" data-act="hotkeys"><span>Hotkeys ...</span><kbd
+            data-key="hotkeys"></kbd></button>
+          <a role="menuitem" href="https://ko-fi.com/hjoerleif" target="_blank"
+            rel="noopener"><span>Donate ...</span><kbd></kbd></a>
+          <button type="button" role="menuitem" data-act="about"><span>About ...</span><kbd
+            data-key="about"></kbd></button>
+        </div>
+      </div>
+    </nav>
+    <div class="menu mob" id="mobileMenu">
+      <button type="button" class="menu-title" aria-expanded="false" aria-controls="menu-mobile"
+        aria-label="Menu"></button>
+      <div class="menu-list" id="menu-mobile" role="menu" hidden>
+        <button type="button" role="menuitem" data-act="savePreset"><span>Save Preset ...</span></button>
+        <button type="button" role="menuitem" data-act="loadPreset"><span>Load Preset ...</span></button>
+        <button type="button" role="menuitem" data-act="options"><span>Options ...</span></button>
+        <a role="menuitem" href="https://github.com/cnordenb/frcp_html" target="_blank"
+          rel="noopener"><span>GitHub ...</span></a>
+        <a role="menuitem" href="https://ko-fi.com/hjoerleif" target="_blank" rel="noopener"><span>Donate ...</span></a>
+        <button type="button" role="menuitem" data-act="about"><span>About ...</span></button>
+      </div>
+    </div>
+
+    <div class="client" id="client" data-tab="0">
+      <div class="frame" aria-hidden="true"></div>
+      <div class="tabstrip" role="tablist" aria-label="Views">
+        <button type="button" class="tab" role="tab" id="tab-0" aria-selected="true" aria-controls="panel"><span
+          class="desk">Draw Civ</span><span class="mob">Draw</span></button>
+        <button type="button" class="tab" role="tab" id="tab-1" aria-selected="false" aria-controls="panel"
+          tabindex="-1">Log</button>
+        <button type="button" class="tab" role="tab" id="tab-2" aria-selected="false" aria-controls="panel"
+          tabindex="-1"><span class="desk">Civ Pool</span><span class="mob">Pool</span></button>
+      </div>
+
+      <div class="panel" id="panel" role="tabpanel" aria-labelledby="tab-0">
+        <button type="button" class="imgbtn sprite desk" id="optionsBig" data-on="0" aria-label="Options"></button>
+        <button type="button" class="imgbtn sprite" id="civIcon" data-on="0 1" hidden></button>
+        <span class="sprite mob" id="civGhost" data-on="0" aria-hidden="true" hidden></span>
+        <p class="label" id="civName" data-on="0 1" aria-live="polite">?</p>
+        <button type="button" class="btn desk" id="drawBtn" data-on="0 1">Draw</button>
+        <button type="button" class="btn desk" id="resetBtn" data-on="0 1">Reset</button>
+        <button type="button" class="imgbtn sprite desk" id="techBtn" data-on="0" data-tip-ext
+          aria-label="Tech tree"></button>
+        <p class="label" id="roundCounter" data-on="0"></p>
+        <div class="mob" id="swipeHints" data-on="0">
+          <p>Swipe left to draw</p><p>Swipe right to undraw</p><p>Swipe up to redraw</p><p>Swipe down to reset</p>
+        </div>
+
+        <p class="label" id="drawnCount" data-on="1"></p>
+        <button type="button" class="btn" id="clearLogBtn" data-on="1">Clear Log</button>
+        <div class="log" id="drawnLog" data-on="1" role="region" tabindex="0"
+          aria-label="Drawn civs, newest first"></div>
+        <p class="label" id="remainingCount" data-on="1"></p>
+        <label class="chk" id="showRemainingLabel" data-on="1"><input type="checkbox" id="showRemaining">Show</label>
+        <div class="log" id="remainingLog" data-on="1" role="region" tabindex="0"
+          aria-label="Civs left to draw this round"></div>
+        <button type="button" class="imgbtn" id="shareBtn" data-on="1" aria-label="Copy share link"></button>
+
+        <div role="group" aria-label="Edition" id="editionGroup" data-on="2"></div>
+        <button type="button" class="imgbtn sprite" id="editionIcon" data-on="2"></button>
+        <p class="label" id="enabledCount" data-on="2"></p>
+        <label class="chk" id="autoToggleLabel" data-on="2"><input type="checkbox"
+          id="autoToggle">Auto-toggle older civs</label>
+        <div id="civGrid" data-on="2"></div>
+        <button type="button" class="btn" id="enableAllBtn" data-on="2">Enable All</button>
+        <button type="button" class="btn" id="disableAllBtn" data-on="2">Disable All</button>
+        <label class="chk" id="autoResetLabel" data-on="2"><input type="checkbox"
+          id="autoReset">Auto-reset upon change</label>
+        <button type="button" class="imgbtn" id="poolShareBtn" data-on="2"
+          aria-label="Copy share link for the civ pool"></button>
+      </div>
+    </div>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <input type="file" id="presetFile" accept=".txt,text/plain" hidden>
+</main>
+
+<div id="tip" role="tooltip" hidden></div>
+
+<dialog class="win" id="dlgOptions" aria-labelledby="optTitle">
+  <form id="optForm">
+    <div class="dlg-title"><h2 id="optTitle">Options</h2><button type="button" class="dlg-x" data-close
+      aria-label="Close">✕</button></div>
+    <div class="dlg-body opt-grid">
+      <fieldset class="group"><legend>Display</legend>
+        <label class="row"><input type="checkbox" name="showName">Show civ name</label>
+        <label class="row"><input type="checkbox" name="showIcon">Show civ icon</label>
+        <label class="row"><input type="checkbox" name="showCounter">Show round counter</label>
+        <label class="row desk"><input type="checkbox" name="tooltips">Enable tooltips</label>
+      </fieldset>
+      <fieldset class="group" id="soundGroup"><legend>Sound</legend>
+        <label class="row"><input type="checkbox" name="jingles">Enable civ jingles</label>
+        <label class="row">Jingle type
+          <select name="jingleType"><option value="de">Definitive Edition</option><option
+            value="legacy">Legacy</option></select></label>
+        <label class="row"><input type="checkbox" name="uiSounds">Enable UI sounds</label>
+      </fieldset>
+      <fieldset class="group"><legend>Continuous freshness</legend>
+        <label class="row"><input type="checkbox" name="fresh">Enable continuous freshness</label>
+        <label for="freshN" id="freshLabel"></label>
+        <div class="slider"><input type="range" id="freshN" name="freshN" min="1" max="28" step="1"></div>
+        <p class="hint">When a round ends, these civs sit out the first draws of the next round.</p>
+      </fieldset>
+      <fieldset class="group"><legend>When the page opens</legend>
+        <label class="row"><input type="checkbox" name="drawOnLoad">Draw a civ</label>
+        <label class="row"><input type="checkbox" name="newRoundOnVisit">Start a new round</label>
+        <p class="hint">Civ pool and draw log are always kept.</p>
+      </fieldset>
+      <fieldset class="group span2 desk"><legend>Hotkeys</legend>
+        <div class="inline">
+          <label class="row">Mode
+            <select name="hotkeys"><option value="desktop">Desktop</option><option
+              value="browser">Browser-friendly</option></select></label>
+          <button type="button" class="btn" data-act="hotkeys">Show Hotkeys</button>
+        </div>
+        <label class="row simple"><input type="checkbox" name="charKeys">Single-key hotkeys</label>
+        <p class="hint" id="modeHint"></p>
+      </fieldset>
+    </div>
+    <div class="dlg-buttons"><button type="submit" class="btn" autofocus>OK</button></div>
+  </form>
+</dialog>
+
+<dialog class="win" id="dlgHotkeys" aria-labelledby="hkTitle">
+  <form data-closes>
+    <div class="dlg-title"><h2 id="hkTitle">Hotkeys</h2><button type="button" class="dlg-x" data-close
+      aria-label="Close">✕</button></div>
+    <div class="dlg-body"><p class="hint" id="hkMode"></p><div class="hk-grid" id="hkGrid"></div></div>
+    <div class="dlg-buttons"><button type="submit" class="btn" autofocus>OK</button></div>
+  </form>
+</dialog>
+
+<dialog class="win" id="dlgAbout" aria-labelledby="aboutTitle">
+  <form data-closes>
+    <div class="dlg-title"><h2 id="aboutTitle">About Fresh Random Civ Picker</h2><button type="button" class="dlg-x"
+      data-close aria-label="Close">✕</button></div>
+    <div class="dlg-body about">
+      <p><strong>Fresh Random Civ Picker</strong>, web version <span id="aboutVersion"></span></p>
+      <p>Created by Carl Nordenbrink, alias <a href="https://www.youtube.com/hjoerleif" target="_blank"
+        rel="noopener">Hjörleif</a>.
+        Also available as a <a href="https://github.com/cnordenb/Fresh-Random-Civ-Picker_GUI/releases" target="_blank"
+          rel="noopener">desktop app</a>.</p>
+      <p>Custom civ pool, draw log and user settings are saved in this browser only. Share links carry a copy of the
+        custom civ pool, and optionally of this round's draws.</p>
+      <p class="simple">In short: Age of Empires II belongs to Microsoft. This picker is a fan project. Microsoft didn't
+        make it and doesn't support it.</p>
+      <p class="hint">Age of Empires II © Microsoft Corporation. Fresh Random Civ Picker was created under Microsoft's
+        "<a href="https://www.xbox.com/en-US/developers/rules" target="_blank"
+          rel="noopener">Game Content Usage Rules</a>"
+        using assets from Age of Empires II and Age of Empires II: Definitive Edition, and it is not endorsed by or
+          affiliated with Microsoft.</p>
+    </div>
+    <div class="dlg-buttons"><button type="submit" class="btn" autofocus>OK</button></div>
+  </form>
+</dialog>
+
+<dialog class="win simple" id="dlgHelp" aria-labelledby="helpTitle">
+  <form data-closes>
+    <div class="dlg-title"><h2 id="helpTitle" tabindex="-1" autofocus>Help</h2><button type="button" class="dlg-x"
+      data-close aria-label="Close">✕</button></div>
+    <div class="dlg-body help">
+      <h3>How it works</h3>
+      <p>This page picks a civilisation, or civ, for you to play in Age of Empires II.</p>
+      <p>Press Draw to get a civ. Each civ in your civ pool comes up once before any civ comes up again. The draws until
+        then are called a round.</p>
+      <p>Press Reset to start a new round. Undo, in the Civs menu, takes back your last change. Redo puts it back.</p>
+      <p>The Log tab lists the civs you have drawn, newest first. It also lists the civs that are left in this
+        round.</p>
+      <p>On the Civ Pool tab, pick the edition of the game you play. Then tick the civs you want. Only ticked civs can
+        be drawn.</p>
+      <p>Your civ pool, your log and your options are saved in this browser. A share link gives the same civ pool to
+        someone else.</p>
+      <h3>Words</h3>
+      <dl class="terms">
+        <dt>Civ</dt><dd>A civilisation, such as the Britons. Each civ plays a bit differently.</dd>
+        <dt>Civ pool</dt><dd>The civs that can be drawn.</dd>
+        <dt>Draw</dt><dd>Pick a random civ from the civ pool.</dd>
+        <dt>Round</dt><dd>The draws from one reset to the next. No civ comes up twice in a round.</dd>
+        <dt>Reset</dt><dd>End the round and start a new one.</dd>
+        <dt>Undo and redo</dt><dd>Undo takes back your last change. Redo puts it back.</dd>
+        <dt>Log</dt><dd>The list of civs you have drawn.</dd>
+        <dt>Edition</dt><dd>A version of the game. Each edition has its own civs.</dd>
+        <dt>Expansion</dt><dd>Extra content for the game, with new civs. Its box turns all of its civs on or off.</dd>
+        <dt>Auto-toggle older civs</dt><dd>Turns on the civs of the first game and its early expansions when you pick an
+          edition.</dd>
+        <dt>Auto-reset upon change</dt><dd>Starts a new round each time you change the civ pool.</dd>
+        <dt>Continuous freshness</dt><dd>When a new round starts, the last civs you drew can't come up again right
+          away.</dd>
+        <dt>Share link</dt><dd>A web address with your civ pool in it. It can also hold this round's draws.</dd>
+        <dt>Preset</dt><dd>A file with your civ pool and draws. The desktop app can open it too.</dd>
+        <dt>Quicksave and quickload</dt><dd>Quicksave keeps a copy of the picker in this browser. Quickload brings that
+          copy back.</dd>
+        <dt>Tech tree</dt><dd>A web page that shows what a civ can build and research.</dd>
+        <dt>Lobby</dt><dd>A game in Age of Empires II: Definitive Edition that is waiting for players. To spectate is to
+          watch it without playing.</dd>
+        <dt>Hotkey</dt><dd>A key that does something on this page. For example, Space draws a civ.</dd>
+        <dt>Single-key hotkey</dt><dd>A hotkey that is just one key, such as a letter, without Ctrl.</dd>
+      </dl>
+      <h3>Short forms</h3>
+      <dl class="terms">
+        <dt>FRCP</dt><dd>Fresh Random Civ Picker</dd>
+        <dt>AoE2</dt><dd>Age of Empires II</dd>
+        <dt>AoE2DE, DE</dt><dd>Age of Empires II: Definitive Edition</dd>
+        <dt>HD</dt><dd>Age of Empires II: HD Edition</dd>
+        <dt>AoK</dt><dd>Age of Empires II: The Age of Kings</dd>
+        <dt>DLC</dt><dd>Downloadable content: an expansion for the game</dd>
+        <dt>Ctrl</dt><dd>The Control key</dd>
+        <dt>Esc</dt><dd>The Escape key</dd>
+        <dt>F1 to F12</dt><dd>The function keys, at the top of the keyboard</dd>
+      </dl>
+    </div>
+    <div class="dlg-buttons"><button type="submit" class="btn">OK</button></div>
+  </form>
+</dialog>
+
+<dialog class="win" id="dlgLobby" aria-labelledby="lobbyTitle">
+  <form id="lobbyForm">
+    <div class="dlg-title"><h2 id="lobbyTitle">Join Lobby</h2><button type="button" class="dlg-x" data-close
+      aria-label="Close">✕</button></div>
+    <div class="dlg-body">
+      <div class="field"><label for="lobbyCode">Enter AoE2DE lobby code:</label>
+        <input type="text" id="lobbyCode" autocomplete="off" spellcheck="false" placeholder="123456789" autofocus></div>
+      <p class="err" id="lobbyErr" hidden>Enter a lobby code such as 123456789 or aoe2de://0/123456789.</p>
+      <p class="hint">NB: AoE2DE must be already running.</p>
+    </div>
+    <div class="dlg-buttons">
+      <button type="submit" class="btn" value="join">Join</button>
+      <button type="submit" class="btn" value="spectate">Spectate</button>
+      <button type="button" class="btn" data-close>Cancel</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="win" id="dlgShare" aria-labelledby="shareTitle">
+  <form data-closes>
+    <div class="dlg-title"><h2 id="shareTitle">Share</h2><button type="button" class="dlg-x" data-close
+      aria-label="Close">✕</button></div>
+    <div class="dlg-body share">
+      <p>Anyone who opens one of these links gets this civ pool. The log of past rounds isn't included.</p>
+      <div class="share-row"><label for="sharePool">Share pool</label><input type="text" id="sharePool" readonly>
+        <button type="button" class="btn" data-copy="sharePool">Copy</button></div>
+      <div class="share-row"><label for="shareRound">Share pool + draws</label><input type="text" id="shareRound"
+        readonly>
+        <button type="button" class="btn" data-copy="shareRound">Copy</button></div>
+      <p class="hint" id="shareNote"></p>
+      <p class="simple" id="shareStatus" role="status"></p>
+    </div>
+    <div class="dlg-buttons"><button type="submit" class="btn" autofocus>Close</button></div>
+  </form>
+</dialog>
+
+<dialog class="win" id="dlgOpen" aria-labelledby="openTitle">
+  <form id="openForm">
+    <div class="dlg-title"><h2 id="openTitle">Open Link</h2><button type="button" class="dlg-x" data-close
+      aria-label="Close">✕</button></div>
+    <div class="dlg-body">
+      <div class="field"><label for="openInput">Paste a Fresh Random Civ Picker link:</label>
+        <input type="text" id="openInput" autocomplete="off" spellcheck="false" autofocus></div>
+      <p class="hint simple" id="openHint"></p>
+      <p class="err" id="openErr" hidden>That isn't a Fresh Random Civ Picker link.</p>
+    </div>
+    <div class="dlg-buttons">
+      <button type="submit" class="btn">Open</button>
+      <button type="button" class="btn" data-close>Cancel</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="win" id="dlgPreview" aria-labelledby="previewTitle">
+  <form id="previewForm">
+    <div class="dlg-title"><h2 id="previewTitle">Open Shared Link</h2><button type="button" class="dlg-x" data-close
+      aria-label="Close">✕</button></div>
+    <div class="dlg-body preview">
+      <p>This link holds:</p>
+      <dl class="facts">
+        <dt>Edition</dt><dd id="pvEdition"></dd>
+        <dt>Civ pool</dt><dd id="pvPool"></dd>
+        <dt>This round</dt><dd id="pvRound"></dd>
+      </dl>
+      <p>Loading it replaces the current civ pool and current round. The log of past rounds is still kept.</p>
+    </div>
+    <div class="dlg-buttons">
+      <button type="submit" class="btn" autofocus>Load Link</button>
+      <button type="button" class="btn" data-close>Cancel</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="win" id="dlgMsg" aria-labelledby="msgTitle">
+  <form data-closes>
+    <div class="dlg-title"><h2 id="msgTitle"></h2><button type="button" class="dlg-x" data-close
+      aria-label="Close">✕</button></div>
+    <div class="dlg-body msg"><p id="msgText"></p></div>
+    <div class="dlg-buttons"><button type="submit" class="btn" autofocus>OK</button></div>
+  </form>
+</dialog>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>

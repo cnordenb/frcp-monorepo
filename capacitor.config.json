@@ -1,0 +1,17 @@
+{
+  "appId": "net.frcp.app",
+  "appName": "Fresh Random Civ Picker",
+  "webDir": "dist/mobile",
+  "backgroundColor": "#000000",
+  "zoomEnabled": false,
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#000000"
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "style": "LIGHT"
+    }
+  }
+}

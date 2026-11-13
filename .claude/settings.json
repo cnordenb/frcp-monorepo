@@ -36,7 +36,7 @@
       "PowerShell(*gh* pr create*)",
       "PowerShell(*gh* pr merge*)",
       "PowerShell(*gh* api *pulls*)",
-      "Edit(/documentation/REQUIREMENTS.md)"
+      "Edit(/docs/REQUIREMENTS.md)"
     ]
   }
 }

@@ -1,0 +1,502 @@
+{
+  "civ IDs never change, and every civ has its ID frozen": {
+    "category": "functional",
+    "purpose": "Prevent a civ's ID from changing, as share links and saved states name civs by ID.",
+    "expects": "The civ names in ID order equal the list in `tests/fixtures/civ-ids.json`."
+  },
+  "editions have unique IDs and years, as which civs an edition has goes by year": {
+    "category": "functional",
+    "purpose": "Verify that no two editions share an ID or a year, as an edition's civs are found by its year.",
+    "expects": "No edition ID or year comes up twice in the data; a failure lists the repeats."
+  },
+  "every DLC and edition the data names exists, and an edition's toggles and older DLCs are its": {
+    "category": "functional",
+    "purpose": "Verify that the data names only DLCs and editions that exist, and gives an edition no DLC of a newer edition.",
+    "expects": "No civ, DLC or edition in `assets/data.json` names an unknown or newer one; a failure lists each wrong name."
+  },
+  "every civ has an icon and a jingle, and a legacy jingle where its edition has them": {
+    "category": "functional",
+    "purpose": "Verify that every civ, and the random icon, has its icon and jingle files, so that no draw shows or plays nothing.",
+    "expects": "Each civ and `random` has a .webp and .webm in `assets/civs/`, legacy civs a _legacy.webm; a failure lists the missing."
+  },
+  "every edition has its icons and banner, and every DLC with an icon has its file": {
+    "category": "functional",
+    "purpose": "Verify that the icons and banners of the editions, the DLC icons and the three atlases are all in `assets/`.",
+    "expects": "Each edition has its icon, hover, pressed and banner .webp, each DLC icon its file; a failure lists missing files."
+  },
+  "every DLC toggle and edition has a hotkey": {
+    "category": "functional",
+    "purpose": "Verify that the hotkey tables have a key for every edition and for every DLC toggle of the fullest edition.",
+    "expects": "The most DLC toggles of any edition is at most the count of DLC keys, and the editions at most the edition keys."
+  },
+  "the atlases have the cells the data needs, in the grid the style sheet and the script give": {
+    "category": "functional",
+    "purpose": "Verify that each atlas holds the cells the data needs, in the grid that the style sheet and the script use.",
+    "expects": "The civ (30 px cells), DLC (128 px cells) and banner atlases have the columns, rows and pixel size the data gives."
+  },
+  "civ names and edition IDs are single words, as preset files split their lines on spaces": {
+    "category": "functional",
+    "purpose": "Prevent a civ name or edition ID that a preset cannot hold, as a preset's lines are split on spaces.",
+    "expects": "No civ name or edition ID has a space or ends in a colon; a failure lists those that do."
+  },
+  "a share link can name every civ (format 1 spends one character per draw)": {
+    "category": "functional",
+    "purpose": "Prevent more civs than a share link can name, as a share link gives each draw one of 64 characters.",
+    "expects": "The count of civs is at most 64; a failure gives both counts."
+  },
+  "the Mersenne Twister gives the reference outputs of mt19937ar.c": {
+    "category": "functional",
+    "purpose": "Verify that the Mersenne Twister, the source of every draw, gives the numbers of its reference code mt19937ar.c.",
+    "expects": "The first output for seed 5489 is 3499211612, and the first five for the array seed equal the reference's."
+  },
+  "every civ in the pool comes up once a round, before any repeats": {
+    "category": "functional",
+    "purpose": "Verify that a round draws every civ of the civ pool once before any civ is drawn again.",
+    "expects": "For 5 civ pools and 3 freshness settings, each of 12 rounds is the whole civ pool; a failure lists broken rounds."
+  },
+  "continuous freshness keeps the newest civs out of the next round's first draws": {
+    "category": "functional",
+    "purpose": "Verify that continuous freshness keeps the civs drawn last out of the first draws of the next round.",
+    "expects": "In 30 rounds of 4 set-ups, no first draw of a round is a civ still sitting out; a failure lists the repeats."
+  },
+  "without continuous freshness, a round can start with the civ the last one ended on": {
+    "category": "functional",
+    "purpose": "Verify that with continuous freshness off, a civ may be drawn twice in a row across two rounds.",
+    "expects": "In 400 seeded draws from a civ pool of Britons and Celts, some draw equals the draw before it."
+  },
+  "an empty pool has nothing to draw": {
+    "category": "functional",
+    "purpose": "Verify that an empty civ pool gives no draw.",
+    "expects": "With every civ off, the next draw is null."
+  },
+  "without a random source there's no pick": {
+    "category": "functional",
+    "purpose": "Verify that no civ is picked when the platform gives no random source.",
+    "expects": "With null as the random source, the next draw among the civs 1, 2 and 3 is null."
+  },
+  "the next draw is an even pick from the civs it can be": {
+    "category": "functional",
+    "purpose": "Verify that the next draw is as likely to be any one of the civs it can be.",
+    "expects": "24000 seeded picks among 12 civs pass a chi-square test of evenness; a failure gives each civ's count."
+  },
+  "the next draw stays an even pick when civs join": {
+    "category": "functional",
+    "purpose": "Verify that the next draw stays an even pick when civs are added after it was picked.",
+    "expects": "30000 picks among 15 civs, each made after a pick among the first 10, pass the chi-square test of evenness."
+  },
+  "the next draw stays an even pick when civs drop out": {
+    "category": "functional",
+    "purpose": "Verify that the next draw stays an even pick when civs are taken away after it was picked.",
+    "expects": "20000 picks among 10 civs, each made after a pick among 15, pass the chi-square test of evenness."
+  },
+  "the next draw stays an even pick when civs join and others drop out": {
+    "category": "functional",
+    "purpose": "Verify that the next draw stays an even pick when some civs are added and others taken away after it was picked.",
+    "expects": "20000 picks among civs 5 to 14, each made after a pick among civs 0 to 9, pass the chi-square test of evenness."
+  },
+  "the next draw stays put while it can, so its jingle only loads once": {
+    "category": "functional",
+    "purpose": "Verify that the next draw does not change while it still can be drawn, so that its jingle is loaded only once.",
+    "expects": "In 200 tries with 20 civs, the pick stays when the civs are reordered or others drop out; a failure lists the moves."
+  },
+  "a preset the desktop app wrote mid-round loads its pool, edition and draws": {
+    "category": "functional",
+    "purpose": "Verify that a preset the first desktop picker wrote in the middle of a round loads with its civ pool and draws.",
+    "expects": "`desktop-log.txt` loads as edition DE with no civ off and one round holding its 36 drawn civs in order."
+  },
+  "a preset from an older desktop app loads, passing over civ names it no longer has": {
+    "category": "functional",
+    "purpose": "Verify that a preset of an older desktop picker loads, and that a civ name the picker no longer has is passed over.",
+    "expects": "`desktop-v1.3.2.txt` loads as edition DE with Bulgarians, Goths, Persians and Sicilians off and an empty round."
+  },
+  "a desktop preset loads and saves back byte for byte": {
+    "category": "functional",
+    "purpose": "Verify that the picker writes a preset exactly as the first desktop picker wrote it.",
+    "expects": "Loading `round-start.txt` and saving it with continuous freshness on gives the same text, byte for byte."
+  },
+  "a preset's freshness history from before this round loads as an earlier round, without counts": {
+    "category": "functional",
+    "purpose": "Verify that a preset's civs drawn before its round load as an earlier round, so that they still count as drawn last.",
+    "expects": "`round-start.txt` loads as a round of Huns, Franks, Teutons with counts 0, then Celts, Mongols; Aztecs and Wu off."
+  },
+  "a saved preset lists every civ in ID order, the round's draws that are on, and the edition": {
+    "category": "functional",
+    "purpose": "Verify that a saved preset lists every civ in ID order as on or off, the round's draws that are on, and the edition.",
+    "expects": "An HD state with Celts off and draws Huns, Celts, Franks saves as all civ states, draws Huns and Franks, then HD."
+  },
+  "a saved preset's freshness history holds the newest civs that could sit out, oldest first": {
+    "category": "functional",
+    "purpose": "Verify that a saved preset holds the civs drawn last, oldest first, as many as continuous freshness can keep out.",
+    "expects": "After a full round and draws Celts and Franks, ContfreshCivArray lists half the civ pool's count, ending Celts, Franks."
+  },
+  "a preset is read from the default edition with all civs on, in any order, to a blank line": {
+    "category": "functional",
+    "purpose": "Verify that a preset's sections are read in any order, on top of the defaults, and only up to the first blank line.",
+    "expects": "A text with HD, draws Britons and Wu, Celts off, then a blank line loads as HD without Celts and one draw, Britons."
+  },
+  "a preset with an unknown edition keeps the default, and repeated or unknown draws are skipped": {
+    "category": "functional",
+    "purpose": "Verify that a preset's unknown edition, unknown civs and repeated draws are passed over and the rest is loaded.",
+    "expects": "Edition XX and draws Celts, Nonsense, Celts, Franks load as the default edition with the draws Celts and Franks."
+  },
+  "text with none of the sections isn't a preset": {
+    "category": "functional",
+    "purpose": "Verify that a text without a preset's section headings is not taken for a preset.",
+    "expects": "None of 5 texts, such as an empty one or one whose heading comes after a blank line, parses; a failure lists them."
+  },
+  "after loading a preset, its earlier civs keep sitting out of the next draws": {
+    "category": "functional",
+    "purpose": "Verify that continuous freshness holds across a loaded preset: its civs drawn last are not the next draws.",
+    "expects": "After loading `round-start.txt`, none of Huns, Franks, Teutons, Celts and Mongols can be the next draw."
+  },
+  "a new state is the default edition with every civ on and an empty round": {
+    "category": "functional",
+    "purpose": "Verify that the picker starts with the default edition, every civ on and an empty round.",
+    "expects": "A new state has the first edition of the data, no civ off and a draw log of one empty round."
+  },
+  "a saved state reads back as it was": {
+    "category": "functional",
+    "purpose": "Verify that a saved state loads as the state it was saved from.",
+    "expects": "A state with Aztecs and Wu off and rounds of 2 draws and 1 draw equals itself after saving and reading."
+  },
+  "anything that isn't a saved state reads as nothing": {
+    "category": "functional",
+    "purpose": "Verify that text that is not a saved state is refused, so that the picker starts afresh.",
+    "expects": "None of 8 values, such as null, `not json`, `{}` and an unknown edition, reads as a state; a failure lists them."
+  },
+  "a saved state keeps only the parts that make sense": {
+    "category": "functional",
+    "purpose": "Verify that a damaged saved state loads with its sound parts, and without what cannot be right.",
+    "expects": "Only civ 1 stays off; unknown civs, wrong types, repeats and empty rounds go, leaving rounds of 1 and 2 draws."
+  },
+  "a saved state with no log gets an empty round": {
+    "category": "functional",
+    "purpose": "Verify that a saved state without draws loads with one empty round to draw into.",
+    "expects": "A state with no draw log, and one with two empty rounds, both load with a draw log of one empty round."
+  },
+  "a saved state of an older edition has the newer civs off": {
+    "category": "functional",
+    "purpose": "Verify that a saved state of an older edition loads with the civs of newer editions off.",
+    "expects": "A saved AOK state with no civ off loads with exactly the civs that are not in AOK off."
+  },
+  "a draw is counted out of the pool, and the draw after a full round starts a new one": {
+    "category": "functional",
+    "purpose": "Verify that each draw is numbered within its round against the civ pool's size, and that a full round ends.",
+    "expects": "With a civ pool of 2, the draws Celts, Britons, Britons log as 1/2 and 2/2, then 1/2 in a new round."
+  },
+  "closing a round adds one empty round, and never two": {
+    "category": "functional",
+    "purpose": "Verify that a reset ends the round once, and that a second reset adds no further empty round.",
+    "expects": "After closing the round twice, a draw log of one draw has that round and one empty round."
+  },
+  "the log keeps its newest 256 draws, dropping the oldest first": {
+    "category": "functional",
+    "purpose": "Verify that the draw log is cut to its newest 256 draws, losing the oldest draws first.",
+    "expects": "Six full rounds are cut to 256 draws: the oldest rounds go, one is cut at its start, the newest stay whole."
+  },
+  "the log never drops draws of the current round, however long": {
+    "category": "functional",
+    "purpose": "Verify that the draw log keeps the whole current round, even when it is longer than 256 draws.",
+    "expects": "A full round followed by a round of 300 draws is cut to the round of 300 draws alone."
+  },
+  "share links written by earlier versions open as they did": {
+    "category": "functional",
+    "purpose": "Prevent a change to share links that makes links already handed out open as something else.",
+    "expects": "The 6 links in `tests/fixtures/share-links.json` each open with the edition, civs on and draws noted there."
+  },
+  "a pool and its draws are written as earlier versions wrote them": {
+    "category": "functional",
+    "purpose": "Verify that a civ pool and its draws are written as the same share link as earlier versions wrote.",
+    "expects": "The 4 fixture links with a full-length code are written again, character for character, from their civ pools."
+  },
+  "a link opens as what it was written from, for every edition": {
+    "category": "functional",
+    "purpose": "Verify that a share link opens as the edition, civ pool and draws it was written from.",
+    "expects": "For each edition, a civ pool with every third civ off and 3 draws is the same after writing and opening."
+  },
+  "a link opens with or without its address": {
+    "category": "functional",
+    "purpose": "Verify that a share link opens whether given whole, as its code alone, with spaces around it or percent-encoded.",
+    "expects": "6 forms of one link, such as the bare code, `#p=` and code, and another site's address, all open the same."
+  },
+  "text that isn't a link opens as nothing": {
+    "category": "functional",
+    "purpose": "Verify that text that is not a share link is refused instead of opening as a wrong civ pool.",
+    "expects": "None of 21 texts, such as an unknown format, edition or civ and bad characters, opens; a failure lists them."
+  },
+  "a link leaves out the draws of civs that are off, and the draws altogether when asked": {
+    "category": "functional",
+    "purpose": "Verify that a share link holds no draw of a civ that is off, and no draws at all when written without them.",
+    "expects": "With Wu off and draws Celts, Wu, Franks, the link holds Celts and Franks with draws, and none without."
+  },
+  "opening a link replaces the pool and starts a round of its draws, keeping past rounds": {
+    "category": "functional",
+    "purpose": "Verify that opening a share link replaces the edition and civ pool and starts a round of its draws, keeping past rounds.",
+    "expects": "Opening `1B__________.KF` gives HD, the DE civs off and a third round of Celts 1/31 and Britons 2/31."
+  },
+  "opening a link without draws starts an empty round": {
+    "category": "functional",
+    "purpose": "Verify that opening a share link without draws ends the round and starts an empty one.",
+    "expects": "Opening `1A__________` on a draw log of one draw leaves that round and adds one empty round."
+  },
+  "the history search picks the first civ whose name starts with the typed text": {
+    "category": "functional",
+    "purpose": "Verify that the history search finds the first civ whose name starts with the typed text, whatever its case.",
+    "expects": "Among Britons, Burmese, Franks, Goths: b, BU, fr, Franks, franksx, oth, g give places 0, 1, 2, 2, -1, -1, 3."
+  },
+  "every hotkey starts with the key the desktop app always had": {
+    "category": "functional",
+    "purpose": "Verify that every hotkey starts with the key it had in the first desktop picker.",
+    "expects": "The 50 hotkeys, in the table's order, have the 50 default keys listed in the test, from Tab to L."
+  },
+  "no two default keys clash": {
+    "category": "functional",
+    "purpose": "Verify that no default key runs two actions on the same tab.",
+    "expects": "No hotkey's default key clashes with another hotkey's; a failure lists the IDs of those that clash."
+  },
+  "a keystroke runs its tab's action, and a global one the same action on every tab": {
+    "category": "functional",
+    "purpose": "Verify that a key runs the action of the tab that is open, and a global key the same action on every tab.",
+    "expects": "Q gives options, clearLog, edDE on the three tabs; F1 gives options on all; Shift+Q and None give nothing."
+  },
+  "the hotkeys of editions and DLC slots that the data lacks do nothing": {
+    "category": "functional",
+    "purpose": "Verify that the hotkey of an edition or DLC toggle that the data does not have runs no action.",
+    "expects": "With 2 editions and 3 DLC toggles, on the Civ Pool tab W and D run edHD and dlc2, E and F run nothing."
+  },
+  "a global keystroke clashes with each tab's hotkey that has it": {
+    "category": "functional",
+    "purpose": "Verify that a key given to a global hotkey clashes with the hotkey of every tab that has that key.",
+    "expects": "Q for ToggleCivName clashes with DrawTabOpenOptions, LogTabClearDrawnLog and CivPoolTabEdition1."
+  },
+  "assigning a keystroke takes it from the hotkeys it clashes with": {
+    "category": "functional",
+    "purpose": "Verify that giving a hotkey a key takes that key from the hotkeys it clashes with, so no key runs two actions.",
+    "expects": "After Q is given to ToggleCivName, the changed hotkeys are it with Q and the three that had Q with None."
+  },
+  "a keystroke that cannot be a hotkey is refused": {
+    "category": "functional",
+    "purpose": "Verify that a key the system keeps, or that has no name, cannot be made a hotkey.",
+    "expects": "None, F12, Alt+Tab, ;, Shift and Win+Q are all 6 refused for Undo, which keeps Ctrl+Z."
+  },
+  "saved hotkeys are read back, and junk among them leaves the default keys": {
+    "category": "functional",
+    "purpose": "Verify that saved hotkeys load, and that a saved key or hotkey that makes no sense leaves the default key.",
+    "expects": "Of 7 saved entries only DrawTabDrawCiv: d and Exit: none are taken, as D and None; the rest stay default."
+  },
+  "the Customise Hotkeys dialog words each outcome of a key press": {
+    "category": "functional",
+    "purpose": "Verify that the Customise Hotkeys dialog says in plain words what each key press did or why it was refused.",
+    "expects": "5 presses give the texts for a key removed, kept by the system, not usable, taken from 3 hotkeys, and set."
+  },
+  "every usable keystroke is read back from its name": {
+    "category": "functional",
+    "purpose": "Verify that every key that can be a hotkey is read back from its saved name, in any letter case.",
+    "expects": "594 of the 78 key names with 8 sets of held keys are usable, and each reads back from its lower-case name."
+  },
+  "text that names no keystroke is not read as one": {
+    "category": "functional",
+    "purpose": "Verify that text which is not a key name is not read as a key.",
+    "expects": "None of 10 texts, such as Ctrl+, Shift+Ctrl+S, F13 and Win+S, reads as a key; a failure lists them."
+  },
+  "the system's keystrokes are kept, unnamed keys refused and the others usable": {
+    "category": "functional",
+    "purpose": "Verify that keys are sorted into those the system keeps, those without a name, and those a hotkey can use.",
+    "expects": "Of 17 keys, 8 such as F12 and Alt+F4 are kept, ;, None and Shift unnamed, and 6 such as Ctrl+Tab usable."
+  },
+  "a key press is named by its held keys, in the order Ctrl, Alt, Shift, and its key": {
+    "category": "functional",
+    "purpose": "Verify that a key press gets one name however it is pressed: held keys in the order Ctrl, Alt, Shift, then the key.",
+    "expects": "12 presses give names such as Ctrl+Shift+S, Num 5 and Alt+PgDn; Shift alone, ; and a Meta press give none."
+  },
+  "the generated manifest gains the frcp.net link filter and the portrait screen": {
+    "category": "functional",
+    "purpose": "Verify that the generated Android project gets what the first Android app declared.",
+    "expects": "The patched sample manifest holds the frcp.net link filter and the portrait setting; a failure lists what is missing."
+  },
+  "patching the manifest a second time changes nothing more": {
+    "category": "functional",
+    "purpose": "Prevent the Android project's manifest from gaining the same parts twice when the script is run again.",
+    "expects": "Patching the patched sample manifest gives the same text."
+  },
+  "a share link's code is what follows #p= in its address": {
+    "category": "functional",
+    "purpose": "Verify that the mobile shell takes the code out of a share link that another app sends.",
+    "expects": "linkCode of https://frcp.net/#p= and a code is that code."
+  },
+  "an address without a share link has no code, so the app opens as from the launcher": {
+    "category": "functional",
+    "purpose": "Verify that a plain frcp.net address starts the app without a share link.",
+    "expects": "linkCode of https://frcp.net/ is null."
+  },
+  "the launch link is what the app starts with, once, though Android reports it twice": {
+    "category": "functional",
+    "purpose": "Prevent the share link the app is started with from being offered twice, as Android reports it twice.",
+    "expects": "A link reported as opened and as the launch link gives that launch code and no later link."
+  },
+  "the launch link opened again while the app runs is delivered again": {
+    "category": "functional",
+    "purpose": "Verify that opening the launch link again in the running app is passed on, after its first twin report is dropped.",
+    "expects": "After the launch, two more reports of the same link give one later link."
+  },
+  "a share sheet that the user dismisses is told from a share that failed": {
+    "category": "functional",
+    "purpose": "Verify that dismissing Android's share sheet is not treated as a failed share.",
+    "expects": "isShareDismissal is true for Capacitor's \"Share canceled\" error and false for another error."
+  },
+  "on mobile the phone layout's rules hold at any width, and the wide layout's at none": {
+    "category": "functional",
+    "purpose": "Enforce that the mobile app keeps the phone layout on wide screens, by rewriting phone.css's media rules.",
+    "expects": "The three media texts of phone.css become \"not all\", \"all\" and \"(hover: none)\"."
+  },
+  "the back button closes an open dialog and nothing else": {
+    "category": "functional",
+    "purpose": "Verify that Android's back button closes an open dialog before an open menu, as in the first Android app.",
+    "expects": "With a dialog and a menu open, only the dialog's close button is clicked."
+  },
+  "the back button leaves the app when no dialog or menu is open": {
+    "category": "functional",
+    "purpose": "Verify that Android's back button leaves the app when nothing is open.",
+    "expects": "With nothing open, the only thing done is leaving the app."
+  },
+  "phone swipes draw, undo, re-roll and reset, and the icons follow the finger": {
+    "category": "functional",
+    "purpose": "Verify that on a phone the swipes draw, undo, re-roll and reset, and that the icons follow the finger.",
+    "expects": "From 3 draws: left gives 4, right undoes, up changes the civ, down gives 0, right undoes; icons move; no page error."
+  },
+  "simple mode's extra elements are hidden on the full page": {
+    "category": "functional",
+    "purpose": "Verify that the elements made for simple mode do not show on the full page.",
+    "expects": "The full page has elements of class `simple`, and none is displayed; a failure lists those showing."
+  },
+  "axe-core finds no WCAG 2.2 A, AA or AAA violation at any size or in dark mode": {
+    "category": "accessibility",
+    "purpose": "Verify that simple mode has no fault that axe-core can find against WCAG 2.2 at levels A, AA and AAA.",
+    "expects": "axe-core reports nothing in 19 states at 5 sizes, one of them dark; a failure lists the state, rule and element."
+  },
+  "1.4.6 Contrast (Enhanced): all text is at least 7:1, in light and dark mode": {
+    "category": "accessibility",
+    "purpose": "Verify that all text in simple mode has a contrast of at least 7:1 (WCAG 1.4.6).",
+    "expects": "No text is under 7:1 against its background, light or dark, at 1280 px, 320 px or on a phone; a failure lists it."
+  },
+  "2.5.5 Target Size (Enhanced): every control is at least 44 x 44 px at any size": {
+    "category": "accessibility",
+    "purpose": "Verify that every control in simple mode is big enough to hit (WCAG 2.5.5).",
+    "expects": "Every control, or its label, is at least 44 x 44 px at every size, also with text spacing; a failure lists the small."
+  },
+  "1.4.10 Reflow: nothing scrolls sideways or leaves the screen at up to 400 % zoom": {
+    "category": "accessibility",
+    "purpose": "Verify that simple mode needs no sideways scrolling at up to 400 % zoom (WCAG 1.4.10).",
+    "expects": "Down to 320 px wide, no page or box scrolls sideways and no text leaves the screen; a failure lists what does."
+  },
+  "1.4.12 Text Spacing: no text overlaps, spills out of its control or is cut off": {
+    "category": "accessibility",
+    "purpose": "Verify that no text is lost when the user sets wider text spacing or a wide font (WCAG 1.4.12).",
+    "expects": "No text overlaps other text, spills out of its control or is cut off at any size; a failure lists each."
+  },
+  "1.4.8 Visual Presentation: short lines, 1.5 line spacing, no justified text": {
+    "category": "accessibility",
+    "purpose": "Verify that blocks of text in simple mode are easy to read (WCAG 1.4.8).",
+    "expects": "Each block of 2 sentences or more has lines of at most 80 characters, 1.5 line height and is not justified."
+  },
+  "3.2.5 Change on Request: every link and button that opens a new tab says so": {
+    "category": "accessibility",
+    "purpose": "Verify that nothing opens a new tab without telling the user first (WCAG 3.2.5).",
+    "expects": "Every link with target _blank and the Tech Tree item and button say (opens in a new tab); a failure lists the others."
+  },
+  "1.1.1, 1.4.9 Images of Text: simple mode loads no images and no sounds": {
+    "category": "accessibility",
+    "purpose": "Verify that simple mode loads no image and no sound (WCAG 1.1.1, 1.4.9).",
+    "expects": "The 1280 px sweep loads no image or sound file, and no style sheet gives simple mode an image; a failure lists them."
+  },
+  "3.1.5 Reading Level: every text, tooltip and message reads at grade 9 or below": {
+    "category": "accessibility",
+    "purpose": "Verify that the texts of simple mode can be read with lower secondary education (WCAG 3.1.5).",
+    "expects": "Over 40 texts of 8 words or more are found, none above Flesch-Kincaid grade 9; a failure lists the hard ones."
+  },
+  "3.1.3, 3.1.4 Unusual Words: Help explains the picker's words and short forms": {
+    "category": "accessibility",
+    "purpose": "Verify that Help explains the picker's own words and its short forms (WCAG 3.1.3, 3.1.4).",
+    "expects": "Help's lists define 18 words, such as Civ pool, and every short form seen on the pages; a failure lists the gaps."
+  },
+  "2.1.1 Keyboard: the menus and tabs open, move and close from the keyboard": {
+    "category": "accessibility",
+    "purpose": "Verify that the menus and tabs of simple mode work from the keyboard alone (WCAG 2.1.1).",
+    "expects": "Enter, the arrows, Home, End, Escape and Tab open, move in and leave the menus and tabs, in 15 steps as listed."
+  },
+  "2.4.3 Focus Order: focus comes back from a dialog, and follows a tab hotkey": {
+    "category": "accessibility",
+    "purpose": "Verify that focus moves where the user expects (WCAG 2.4.3).",
+    "expects": "Help opens at its heading, Escape returns focus to the Help menu, and hotkey 3 moves focus to the Civ Pool tab."
+  },
+  "2.4.7, 2.4.11-13 Focus: every Tab stop has a clear, uncovered focus ring": {
+    "category": "accessibility",
+    "purpose": "Verify that the focused control always shows and is never hidden (WCAG 2.4.7, 2.4.11 to 2.4.13).",
+    "expects": "At 3 sizes each tab has over 8 Tab stops, each with a ring of 2 px and 3:1 or more and nothing covering it."
+  },
+  "2.1.4 Character Key Shortcuts: single-key hotkeys can be turned off": {
+    "category": "accessibility",
+    "purpose": "Verify that the single-key hotkeys can be turned off (WCAG 2.1.4).",
+    "expects": "With them off, Space, 2 and O do nothing, F2 still opens the hotkeys, and no single key is listed there."
+  },
+  "1.4.13 Content on Hover or Focus: tooltips can be dismissed and hovered": {
+    "category": "accessibility",
+    "purpose": "Verify that a tooltip can be dismissed, hovered and reached by keyboard (WCAG 1.4.13).",
+    "expects": "The Draw tooltip shows on hover and focus, stays under the pointer, and goes on Escape until the pointer returns."
+  },
+  "2.5.1 Pointer Gestures: phones draw with buttons, and a swipe does nothing": {
+    "category": "accessibility",
+    "purpose": "Verify that simple mode needs no swipe on a phone (WCAG 2.5.1).",
+    "expects": "On a 375 x 812 phone a swipe draws nothing, the Draw and Reset buttons show, and a tap on Draw draws."
+  },
+  "2.5.2 Pointer Cancellation: a click outside an open menu only closes it": {
+    "category": "accessibility",
+    "purpose": "Verify that a click meant to close a menu does nothing else (WCAG 2.5.2).",
+    "expects": "With a menu open, a click on Draw closes the menu and draws nothing; the next click on Draw draws."
+  },
+  "1.4.10 Reflow: on a phone only the tab's panel scrolls, and menus move nothing": {
+    "category": "accessibility",
+    "purpose": "Verify that a small phone scrolls one way only, and that the whole page scrolls at 400 % zoom (WCAG 1.4.10).",
+    "expects": "At 320 x 568 only the panel scrolls, tabs open at their top, menus fit and move nothing; a failure lists the faults."
+  },
+  "3.3.6 Error Prevention: Clear Log, Disable All and Quickload can be undone": {
+    "category": "accessibility",
+    "purpose": "Verify that the actions that lose the user's work can be undone (WCAG 3.3.6).",
+    "expects": "Ctrl+Z brings back the 2 rounds after Clear Log, the civs after Disable All, and the draw a quickload took."
+  },
+  "4.1.3 Status Messages, 2.2.1: results are announced and stay on screen": {
+    "category": "accessibility",
+    "purpose": "Verify that results are told to screen readers and are not taken away by a timer (WCAG 4.1.3, 2.2.1).",
+    "expects": "The toast has role status, says Log cleared and still shows after 3 seconds; Undone replaces it; copying reports."
+  },
+  "3.3.1, 3.3.3 Errors: a bad lobby code or link is explained, marked and focused": {
+    "category": "accessibility",
+    "purpose": "Verify that a wrong entry is pointed out and the user told how to mend it (WCAG 3.3.1, 3.3.3).",
+    "expects": "Entering abc as lobby code and as link shows an error that the field is tied to, marks it invalid and focuses it."
+  },
+  "1.3.1, 4.1.2: lists, groups, headings, states and landmarks are marked up": {
+    "category": "accessibility",
+    "purpose": "Verify that what the layout shows is also in the markup, for screen readers (WCAG 1.3.1, 4.1.2).",
+    "expects": "Rounds are lists, edition, DLCs and civs named groups, counts headings; editions say if pressed; lang is en."
+  },
+  "forced colours: the selected edition and the focus ring still show": {
+    "category": "accessibility",
+    "purpose": "Verify that simple mode still works when the system forces its own colours.",
+    "expects": "With forced colours, the selected edition's dot is a radial gradient and the focus ring is solid, 3 px."
+  },
+  "every sweep reaches every tab, menu and dialog, and no page throws an error": {
+    "category": "accessibility",
+    "purpose": "Prevent the sweeps from passing because a tab, menu or dialog never opened, or a page threw an error.",
+    "expects": "All 19 states open in all 13 sweeps and no page of any test logs an error; a failure lists each."
+  },
+  "the code has no comments (Rule 10)": {
+    "category": "maintainability",
+    "purpose": "Enforce that the code has no comments (Rule 10).",
+    "expects": "No .ts, .html, .css or .sh file that git lists has a comment; a failure lists each file and line."
+  },
+  "no function is longer than 60 lines (Rule 11)": {
+    "category": "maintainability",
+    "purpose": "Enforce that no function is longer than 60 lines (Rule 11).",
+    "expects": "No function in a .ts file that git lists is over 60 lines; a failure lists the file, line and length."
+  }
+}

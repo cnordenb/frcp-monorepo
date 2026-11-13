@@ -3,3 +3,7 @@ temp/
 .claude/settings.local.json
 .metrics/
 target/
+node_modules/
+dist/
+android/
+release/

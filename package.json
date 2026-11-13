@@ -1,0 +1,61 @@
+{
+  "name": "fresh-random-civ-picker",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Draw a random Age of Empires 2 civilisation without repeats: web, desktop and mobile",
+  "type": "module",
+  "main": "dist/desktop/main.js",
+  "scripts": {
+    "check": "tsc -p src",
+    "build": "node scripts/build.ts",
+    "test": "node scripts/build.ts web && node --test \"tests/**/*.test.ts\"",
+    "web": "node scripts/build.ts && node scripts/serve.ts",
+    "desktop": "node scripts/build.ts && electron .",
+    "mobile": "node scripts/build.ts && cap sync android",
+    "package": "node scripts/build.ts desktop && electron-builder --win portable",
+    "atlas": "node scripts/atlas.ts",
+    "tests-doc": "node scripts/tests-doc.ts",
+    "coverage": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=target/coverage/typescript/lcov.info \"tests/**/*.test.ts\""
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/cli": "^8.6.2",
+    "@capacitor/core": "^8.6.2",
+    "@capacitor/filesystem": "^8.1.5",
+    "@capacitor/share": "^8.0.3",
+    "@types/node": "^26.6.6",
+    "electron": "^45.3.1",
+    "electron-builder": "^26.18.0",
+    "esbuild": "^0.28.2",
+    "sharp": "^0.35.5",
+    "typescript": "^7.0.2"
+  },
+  "overrides": {
+    "app-builder-lib": {
+      "minimatch": "^11.0.8",
+      "glob@7": {
+        "minimatch": "^3.1.5"
+      },
+      "dir-compare": {
+        "minimatch": "^3.1.5"
+      }
+    },
+    "global-agent": "^4.1.7"
+  },
+  "build": {
+    "appId": "net.frcp.desktop",
+    "productName": "Fresh Random Civ Picker",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/desktop/**",
+      "package.json"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "assets/launcher/frcp_desktop.ico"
+    }
+  }
+}

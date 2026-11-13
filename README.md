@@ -1,49 +1,80 @@
-<!-- template:start -->
-> [!NOTE]
-> **This repository is a template.** Create a repository from it, open the new repository in Claude Code and run
-> `/project-setup`. It asks one question, the project's name and what it is for, fills in what is known and removes
-> this note. The other placeholders, such as the stack, are filled in later, as the work makes them known. With
-> another AI agent, ask it to follow `.claude/skills/project-setup/SKILL.md`; by hand, replace the project's name,
-> purpose and owner where you find `{{`, and delete this note.
->
-> What comes with it, so that no agent needs the same things explained twice:
->
-> - `AGENTS.md` and `CLAUDE.md`: what an agent reads first, what it must never do, and when a change is done.
-> - `documentation/`: rules, requirements, tests, a maintainer's guide, terms, decisions and a development log in
->   parts of at most 1000 lines.
-> - `.claude/skills/`: procedures for the log, `TESTS.md`, `MAINTAINER.md`, `TERMINOLOGY.md` and a check of the rules,
->   and `ub-mode`, principles for writing code, whose tools crapper, dryer and mutator stay outside the project.
-> - `.claude/settings.json`: Claude Code may not commit, push or change `REQUIREMENTS.md`.
-> - `.github/`: contributing, conduct, security and accessibility notes, issue and pull request forms, and a
->   workflow that runs `.github/scripts/check-rules.sh` and the tests on every push.
-<!-- template:end -->
-
-[![GitHub last commit](https://img.shields.io/github/last-commit/{{GITHUB_OWNER}}/{{REPO_NAME}})](#)
-[![language](https://img.shields.io/badge/language-{{LANGUAGE}}-FFFF00)](#)
+[![GitHub last commit](https://img.shields.io/github/last-commit/cnordenb/Fresh-Random-Civ-Picker)](#)
+[![language](https://img.shields.io/badge/language-TypeScript-FFFF00)](#)
 [![license](https://img.shields.io/badge/license-MIT-007FFF)](LICENSE)
-[![testing](https://img.shields.io/badge/testing-yes-C3FF00)](documentation/TESTS.md)
-[![maintainable](https://img.shields.io/badge/maintainable-yes-00FF72)](documentation/MAINTAINER.md)
+[![testing](https://img.shields.io/badge/testing-yes-C3FF00)](docs/TESTS.md)
+[![maintainable](https://img.shields.io/badge/maintainable-yes-00FF72)](docs/MAINTAINER.md)
 
-# {{PROJECT_NAME}}
+# Fresh Random Civ Picker
 
 ## Description
 
-{{PROJECT_DESCRIPTION}}
+Draw a random Age of Empires 2 civilisation without repeats.
+
+The game's own random pick can give the same civ twice in a row. Fresh Random Civ Picker draws every civ of the civ
+pool once before any civ comes up again, and with continuous freshness on it also keeps the civs drawn last out of
+the first draws of the next round.
+
+One code base in TypeScript runs on three platforms:
+
+| Platform | What it is | Where its guide is |
+| --- | --- | --- |
+| Web | The site at [frcp.net](https://frcp.net/), with simple mode at [frcp.net/simple](https://frcp.net/simple) | [WEB.md](docs/web/WEB.md) |
+| Desktop | An Electron app for Windows, with customisable hotkeys and the civs' histories | [DESKTOP.md](docs/desktop/DESKTOP.md) |
+| Mobile | An Android app, built with Capacitor, with swipes and the share sheet | [MOBILE.md](docs/mobile/MOBILE.md) |
+
+All three read and write the same share links (`https://frcp.net/#p=...`), the same preset files and the same saved
+state.
 
 ## Usage
 
-{{USAGE}}
+On the web, open [frcp.net](https://frcp.net/). To run any platform from this repository, install
+[Node.js](https://nodejs.org/) 24 or newer, then in the project's folder:
+
+```
+npm ci             # once: installs the packages
+npm run web        # builds the site and serves it at http://127.0.0.1:8080/
+npm run desktop    # builds and starts the desktop app
+npm run mobile     # builds the site for Android and hands it to Capacitor (see MOBILE.md for the first time)
+npm test           # builds the web site and runs the tests
+```
+
+What the picker does:
+
+- **Draw** a fresh random civ, with its icon and jingle. **Reset** to start a new round at any time.
+- **Undo and redo** a draw or a reset, and **re-roll** a draw for another civ.
+- **Log** tab: the civs drawn, round by round, and the civs left this round.
+- **Civ Pool** tab: choose the edition, switch whole DLCs on and off, or pick civs one by one.
+- **Share links**: copy a link to the civ pool, with or without the round's draws, and open one.
+- **Presets**: save the civ pool and the round to a file and load it again; quicksave and quickload.
+- **Options**: continuous freshness, icons, jingles (also the legacy ones), sounds, tooltips, drawing at start.
+- **Links out**: the drawn civ's tech tree at [aoe2techtree.net](https://aoe2techtree.net/), joining or spectating
+  an Age of Empires II: Definitive Edition lobby by its code, and the editions' store pages.
+- **Hotkeys** for nearly everything; on the desktop each can be given another key.
 
 ## Contributing
 
-Anyone is welcome to open an [issue](https://github.com/{{GITHUB_OWNER}}/{{REPO_NAME}}/issues) to submit a bug report or suggest a new feature. Alternatively, you may fork or copy the repository and take it in any direction you wish.
+Anyone is welcome to open an [issue](https://github.com/cnordenb/Fresh-Random-Civ-Picker/issues) to submit a bug report or suggest a new feature. Alternatively, you may fork or copy the repository and take it in any direction you wish.
 
 If you wish to contribute work into this repository, please consult [CONTRIBUTING.md](.github/CONTRIBUTING.md) before any commits or pull requests.
 
 ## Maintaining
 
-To keep {{PROJECT_NAME}} working and up to date, see [MAINTAINER.md](documentation/MAINTAINER.md).
+To keep Fresh Random Civ Picker working and up to date, see [MAINTAINER.md](docs/MAINTAINER.md).
 
 ## Acknowledgements
 
-Development of {{PROJECT_NAME}} was accelerated with {{AI_MODEL}}.
+- hszemi, Anda, exterkamp, paulirish, lalitpatel, Jineapple, TriRem, pip and NkoDragaš at
+  [Siege Engineers](https://siegeengineers.org/) for [aoe2techtree.net](https://aoe2techtree.net/), which the picker
+  links to for the tech trees.
+- [Survivalist](https://www.youtube.com/channel/UCmFJUeU8Oubp5Neldbq0JRA), whose villager calculator early versions
+  linked to and which inspired [aoe2vils.net](https://aoe2vils.net/).
+- [axe-core](https://github.com/dequelabs/axe-core) 4.10.2 by Deque Systems, kept in `tests/simple/vendor` under its
+  own licence (MPL 2.0), which the accessibility tests use.
+- Development of Fresh Random Civ Picker was accelerated with Claude Opus 5.5 and Claude Fable 5.2.
+
+## Microsoft assets
+
+Age of Empires II © Microsoft Corporation. Fresh Random Civ Picker was created under Microsoft's
+"[Game Content Usage Rules](https://www.xbox.com/en-US/developers/rules)" using assets from Age of Empires II: The
+Age of Kings, Age of Empires II: HD Edition, and Age of Empires II: Definitive Edition, and it is not endorsed by or
+affiliated with Microsoft.

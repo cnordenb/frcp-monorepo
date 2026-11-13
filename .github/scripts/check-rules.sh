@@ -1,5 +1,5 @@
-exempt_folders="documentation/DEVLOG"
-code_pattern='\.(sh|ya?ml)$'
+exempt_folders="docs/DEVLOG"
+code_pattern='\.(sh|ya?ml|ts|html|css)$'
 
 errors=0
 template="${TEMPLATE:-false}"
@@ -63,7 +63,7 @@ check_names() {
 }
 
 check_devlog() {
-  local dir=documentation/DEVLOG count n
+  local dir=docs/DEVLOG count n
   devlog_days=""
   count="$(printf '%s\n' "$all_files" | grep -cE "^$dir/DEVLOG[1-9][0-9]*\.md$" || true)"
   if [ "$count" -eq 0 ]; then
@@ -114,7 +114,7 @@ check_devlog_days() {
 }
 
 check_tests_doc() {
-  local doc=documentation/TESTS.md text headings listed expected="" count long
+  local doc=docs/TESTS.md text headings listed expected="" count long
   if [ ! -f "$doc" ]; then
     fail "$doc is missing (Rule 6)"
     return 0

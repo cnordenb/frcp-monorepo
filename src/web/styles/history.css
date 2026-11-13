@@ -1,0 +1,32 @@
+#dlgHistory .dlg-body { width: 574px; max-width: 100%; }
+#dlgHistory .his-top {
+  display: grid; grid-template-columns: minmax(0, 216px) 52px minmax(0, 1fr); gap: 8px 14px; align-items: start;
+}
+#dlgHistory .his-fields {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 6px; align-items: center;
+}
+#dlgHistory .his-fields label { white-space: nowrap; }
+#dlgHistory .his-fields :is(input, select) { width: 100%; min-width: 0; }
+#dlgHistory .his-icon { display: block; width: 52px; height: 52px; }
+#dlgHistory .facts { margin: 0; }
+#dlgHistory .facts :is(dt, dd) { min-height: 1lh; }
+#dlgHistory .his-checks { display: flex; flex-wrap: wrap; gap: 2px 24px; margin: 8px 0; }
+#dlgHistory .his-text-frame { position: relative; }
+#dlgHistory .log {
+  position: static; height: 300px; max-height: 45vh; white-space: pre-wrap; overflow-wrap: break-word;
+}
+:root[data-simple] #dlgHistory .log { touch-action: auto; }
+:root:not([data-simple]) #dlgHistory input[type="text"] {
+  padding: 0 5px; border: 1px solid transparent; border-radius: 0; color: #fff;
+  background: #474747; border-image: url("../assets/ui/panels/textfield_9slice.webp") 15 fill / 7px stretch;
+}
+:root:not([data-simple]) #dlgHistory input[type="text"]:focus-visible { outline: 1px dotted #000; outline-offset: 1px; }
+@media (max-width: 609px) {
+  #dlgHistory .dlg-body { width: auto; }
+  #dlgHistory .his-top { grid-template-columns: minmax(0, 1fr) 52px; }
+  #dlgHistory .facts { grid-column: 1 / -1; }
+  #dlgHistory .log { max-height: 40vh; }
+}
+@supports (appearance: base-select) {
+  :root:not([data-simple]) #dlgHistory select::picker(select) { scrollbar-color: #c9a26b #4a3b29; }
+}

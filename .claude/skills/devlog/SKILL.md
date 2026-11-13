@@ -1,7 +1,7 @@
 ---
 name: devlog
 description: >-
-  Write the development log in documentation/DEVLOG/ and keep documentation/DECISIONS.md in step with it: add a
+  Write the development log in docs/DEVLOG/ and keep docs/DECISIONS.md in step with it: add a
   section for a change, record answers to earlier questions, list decisions, and start a new part before one passes
   1000 lines. Use this skill after every change to the project's files, however small, before reporting the work as
   done; when the chief developer answers a question from the log; when a decision is made or reversed; and when asked
@@ -15,7 +15,7 @@ It describes the project, never the people or agents who worked on it (Rule 17):
 
 ## Where to write
 
-1. Find the newest part: the `DEVLOG<n>.md` with the highest `n` in `documentation/DEVLOG/`.
+1. Find the newest part: the `DEVLOG<n>.md` with the highest `n` in `docs/DEVLOG/`.
 2. Take the date and time from the shell, never from memory or the conversation:
    - Bash: `date '+%Y-%m-%d %H:%M:%S'`
    - PowerShell: `Get-Date -Format 'yyyy-MM-dd HH:mm:ss'`
@@ -103,7 +103,7 @@ title, and so its link, unique, which keeps `DECISIONS.md`'s links pointing at t
 
 ## DECISIONS.md
 
-Every section that decides something adds it to `documentation/DECISIONS.md` (Rule 23): a choice between two ways, a
+Every section that decides something adds it to `docs/DECISIONS.md` (Rule 23): a choice between two ways, a
 reading of a rule or requirement, an answer to a question, a change of one of them. The form, the subjects and how to
 write a link to a section are in [references/decision-list.md](references/decision-list.md).
 

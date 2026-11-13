@@ -1,0 +1,143 @@
+dialog.win {
+  padding: 0; max-width: calc(100vw - 32px); border: 1px solid var(--frame); background: var(--face); color: #000;
+  color-scheme: light; font: 12px/1.4 var(--ui); box-shadow: 0 12px 36px rgba(0, 0, 0, .35);
+}
+dialog.win::backdrop { background: rgba(0, 0, 0, .15); }
+:root:not([data-simple]) dialog.win {
+  --slice: 38px;
+  padding: 13px; border: 0; box-shadow: none; filter: drop-shadow(0 12px 24px rgba(0, 0, 0, .35));
+  background: none;
+}
+:root:not([data-simple]) dialog.win::before, :root:not([data-simple]) dialog.win::after {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+}
+:root:not([data-simple]) dialog.win::before {
+  inset: calc(var(--slice) / 2); background: url("../assets/ui/panels/panel_9slice.webp") 50% 50% / 300% 300% no-repeat;
+}
+:root:not([data-simple]) dialog.win::after {
+  inset: 0; border: var(--slice) solid transparent;
+  border-image: url("../assets/ui/panels/panel_9slice.webp") 64 / var(--slice) round;
+}
+:root:not([data-simple]) dialog.win .dlg-title { background: none; }
+:root:not([data-simple]) #dlgOptions .group { border-color: rgba(60, 40, 20, .35); }
+:root:not([data-simple]) dialog.win :is(.hint, .facts dt) { color: #3d2c1c; }
+:root:not([data-simple]) dialog.win a { color: #08306a; }
+:root:not([data-simple]) dialog.win .err { color: #680a0a; }
+.dlg-title {
+  display: flex; align-items: center; justify-content: space-between; height: 30px; padding-left: 10px;
+  background: #fff; user-select: none; -webkit-user-select: none;
+}
+.dlg-title h2 { margin: 0; font: inherit; }
+.dlg-x { width: 46px; height: 30px; border: 0; background: none; font: 13px var(--ui); color: #000; cursor: pointer; }
+.dlg-x:hover { background: #e81123; color: #fff; }
+:root:not([data-simple]) .dlg-x {
+  padding: 6.5px 14.5px; color: transparent; cursor: var(--arrow, default);
+  background: url("../assets/ui/buttons/x_button.webp") 0 0 / 200% 100% no-repeat content-box;
+}
+:root:not([data-simple]) .dlg-x:active { background-position-x: 100%; }
+.dlg-body { padding: 12px 14px 4px; }
+.dlg-body p { margin: 0 0 8px; }
+.dlg-buttons { display: flex; justify-content: flex-end; gap: 8px; padding: 8px 14px 14px; }
+.dlg-buttons .btn, .dlg-body .btn { position: static; min-width: 75px; height: 23px; }
+.dlg-body a { color: #0066cc; cursor: var(--hand, pointer); }
+.group { min-width: 0; margin: 0; padding: 4px 10px 10px; border: 1px solid #dcdcdc; }
+.group legend { padding: 0 3px; }
+.row {
+  display: flex; align-items: center; gap: 6px; min-height: 22px; white-space: nowrap; cursor: var(--hand, pointer);
+}
+.row input { margin: 0; cursor: var(--hand, pointer); }
+.field { display: grid; gap: 4px; width: 420px; margin-bottom: 8px; }
+dialog select, dialog input[type="text"] {
+  height: 22px; padding: 0 4px; border: 1px solid #7a7a7a; background: #fff; color: #000; font: inherit;
+}
+dialog select:disabled { color: #8a8a8a; border-color: #c4c4c4; }
+:root:not([data-simple]) dialog select {
+  appearance: none; -webkit-appearance: none; padding: 0 22px 0 4px; border-color: #3d2c1c; border-radius: 0;
+  color: #f1deae; cursor: var(--hand, pointer);
+  background: linear-gradient(#65523b, #65523b) 0 0 / calc(100% - 16px) 100% no-repeat,
+    #65523b url("../assets/ui/controls/dropdown_button.webp") right -16px top 0 / 32px 100% no-repeat;
+}
+:root:not([data-simple]) dialog select[name="jingleType"] { width: 124px; }
+:root:not([data-simple]) dialog select[name="hotkeys"] { width: 120px; }
+:root:not([data-simple]) dialog select:active { background-position-x: 0, right; }
+:root:not([data-simple]) dialog select:disabled { opacity: .55; cursor: var(--arrow, default); }
+:root:not([data-simple]) dialog select:focus-visible { outline: 1px dotted #000; outline-offset: 1px; }
+:root:not([data-simple]) dialog option { background: #65523b; color: #f1deae; }
+@supports (appearance: base-select) {
+  :root:not([data-simple]) dialog select, :root:not([data-simple]) dialog select::picker(select) {
+    appearance: base-select;
+  }
+  :root:not([data-simple]) dialog select { min-block-size: 0; align-items: center; }
+  :root:not([data-simple]) dialog select:open { background-position-x: 0, right; }
+  :root:not([data-simple]) dialog select::picker-icon, :root:not([data-simple]) dialog option::checkmark {
+    display: none;
+  }
+  :root:not([data-simple]) dialog select::picker(select) {
+    padding: 2px; border: 1px solid #3d2c1c; border-radius: 0; background: #65523b;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, .25);
+    position-try-order: normal;
+  }
+  :root:not([data-simple]) dialog option { min-block-size: 0; padding: 3px 6px; cursor: var(--hand, pointer); }
+  :root:not([data-simple]) dialog option:hover, :root:not([data-simple]) dialog option:focus-visible {
+    background: #dccb70; color: #000; outline: none;
+  }
+}
+:root:not([data-simple]) :is(#sharePool, #shareRound, #lobbyCode, #openInput) {
+  padding: 0 5px; border: 1px solid transparent; border-radius: 0; color: #fff;
+  background: #474747; border-image: url("../assets/ui/panels/textfield_9slice.webp") 15 fill / 7px stretch;
+}
+:root:not([data-simple]) #lobbyCode::placeholder { color: rgba(255, 255, 255, .45); }
+:root:not([data-simple]) :is(#sharePool, #shareRound, #lobbyCode, #openInput):focus-visible {
+  outline: 1px dotted #000; outline-offset: 1px;
+}
+dialog input[type="range"] { width: 100%; margin: 2px 0; cursor: var(--arrow, default); }
+:root:not([data-simple]) .slider { position: relative; margin: 2px 0; }
+:root:not([data-simple]) .slider::before, :root:not([data-simple]) .slider::after {
+  content: ""; position: absolute; left: 0; top: 50%; width: 100%; aspect-ratio: 340 / 25; transform: translateY(-50%);
+  background: url("../assets/ui/controls/slider.webp") 0 0 / 100% 200% no-repeat;
+}
+:root:not([data-simple]) .slider::after {
+  background-position-y: 100%;
+  clip-path: inset(0 calc(100% - 9.41% - 81.18% * var(--fill, 0)) 0 0);
+}
+:root:not([data-simple]) .slider:has(input:disabled) { opacity: .55; }
+:root:not([data-simple]) .slider input {
+  -webkit-appearance: none; appearance: none; position: relative; z-index: 1; display: block;
+  width: calc(81.18% + 24px); height: 24px; margin: 0 auto; background: none;
+}
+:root:not([data-simple]) .slider input:focus-visible { outline: 1px dotted #000; outline-offset: 1px; }
+:root:not([data-simple]) .slider input::-webkit-slider-runnable-track { height: 24px; background: none; }
+:root:not([data-simple]) .slider input::-moz-range-track { height: 24px; background: none; }
+:root:not([data-simple]) .slider input::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 24px; height: 24px; border: 0;
+  background: url("../assets/ui/controls/slider_knob.webp") center / contain no-repeat;
+}
+:root:not([data-simple]) .slider input::-moz-range-thumb {
+  width: 24px; height: 24px; border: 0; border-radius: 0;
+  background: url("../assets/ui/controls/slider_knob.webp") center / contain no-repeat;
+}
+.hint { color: #555; }
+.err { color: #c42b1c; }
+.opt-grid { display: grid; grid-template-columns: repeat(3, 214px); gap: 10px; }
+.span2 { grid-column: span 2; }
+.inline { display: flex; align-items: center; gap: 10px; }
+.hk-grid { display: grid; grid-template-columns: auto auto auto; gap: 4px 28px; align-items: start; }
+.hk-grid h3 { margin: 0 0 4px; font-size: 12px; }
+.hk-grid section + section { margin-top: 12px; }
+.hk-grid ul { margin: 0; padding: 0; list-style: none; }
+.hk-grid .global ul { columns: 2; column-gap: 28px; }
+.hk-grid li { white-space: nowrap; line-height: 1.75; break-inside: avoid; }
+kbd.key {
+  display: inline-block; min-width: 20px; padding: 0 4px; border: 1px solid #b4b4b4; border-bottom-width: 2px;
+  border-radius: 3px; background: #fff; font: 11px/1.4 var(--ui); text-align: center;
+}
+:root:not([data-simple]) kbd.key { background: #d7b394; color: #391c1b; }
+.about { width: 440px; }
+.share { width: 600px; }
+.share-row { display: grid; grid-template-columns: 120px 1fr auto; gap: 8px; align-items: center; margin-bottom: 8px; }
+.share-row input { width: 100%; }
+.preview { width: 440px; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; margin: 0 0 10px; }
+.facts dt { color: #555; }
+.facts dd { margin: 0; }
+.msg { width: 380px; }

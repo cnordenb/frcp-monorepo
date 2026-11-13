@@ -1,26 +1,28 @@
 # Instructions for AI agents
 
-{{PROJECT_NAME}}: {{PROJECT_DESCRIPTION}}
+Fresh Random Civ Picker: Draw a random Age of Empires 2 civilisation without repeats.
 
-- Stack: {{STACK}}
-- Run the tests: `{{TEST_COMMAND}}`
+- Stack: TypeScript 7 on Node.js 24 or newer, which runs `.ts` files as they are; esbuild bundles each platform's
+  site; Electron is the desktop shell and Capacitor the Android one; tests use `node:test`, the page tests a headless
+  Chrome or Edge
+- Run the tests: `npm test` (after `npm ci` once)
 - Check the rules a script can check: `bash .github/scripts/check-rules.sh` (Git Bash on Windows)
 
 ## Read before changing anything
 
-1. `documentation/RULES.md`: how the project must be made. The rules come before any habit or default of yours.
-2. `documentation/REQUIREMENTS.md`: what the project must do.
-3. `documentation/TERMINOLOGY.md`: the project's words. Use them, in the documents and in the code.
-4. The newest part of `documentation/DEVLOG/`: what was done last, what was left undone, and the open questions.
-5. `documentation/DECISIONS.md`: what has been decided. Do not reopen a decision without a new reason.
-6. `documentation/MAINTAINER.md`, when the change touches code: how the code works.
+1. `docs/RULES.md`: how the project must be made. The rules come before any habit or default of yours.
+2. `docs/REQUIREMENTS.md`: what the project must do.
+3. `docs/TERMINOLOGY.md`: the project's words. Use them, in the documents and in the code.
+4. The newest part of `docs/DEVLOG/`: what was done last, what was left undone, and the open questions.
+5. `docs/DECISIONS.md`: what has been decided. Do not reopen a decision without a new reason.
+6. `docs/MAINTAINER.md`, when the change touches code: how the code works.
 
 ## Never
 
 - Commit, push, merge, rebase, cherry-pick, or open or merge a pull request (Rule 0). Leave every change in the working
   tree for a human to review and commit.
-- Change `documentation/REQUIREMENTS.md` (Rule 2). If a requirement looks wrong, unclear or in conflict with a rule, ask.
-- Change `documentation/RULES.md` unless the chief developer asks for that change.
+- Change `docs/REQUIREMENTS.md` (Rule 2). If a requirement looks wrong, unclear or in conflict with a rule, ask.
+- Change `docs/RULES.md` unless the chief developer asks for that change.
 - Name a person or an agent in the development log (Rule 17).
 - Rewrite an earlier section of the log. A correction is a new section that says what it corrects.
 

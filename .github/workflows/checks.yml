@@ -17,10 +17,19 @@ jobs:
         env:
           TEMPLATE: ${{ github.event.repository.is_template }}
         run: bash .github/scripts/check-rules.sh
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install the packages, check the types and build the three platforms
+        run: |
+          npm ci
+          npm run check
+          npm run build
       - name: Run the tests
         if: always()
         env:
-          TEST_COMMAND: ''
+          TEST_COMMAND: 'npm test'
         run: |
           if [ -z "$TEST_COMMAND" ]; then
             echo "::warning::No tests run yet: set TEST_COMMAND in .github/workflows/checks.yml."

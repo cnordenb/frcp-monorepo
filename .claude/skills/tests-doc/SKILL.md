@@ -1,7 +1,7 @@
 ---
 name: tests-doc
 description: >-
-  Keep documentation/TESTS.md in step with the tests: add, remove, merge, renumber and describe tests, keep each
+  Keep docs/TESTS.md in step with the tests: add, remove, merge, renumber and describe tests, keep each
   test's file and lines right, and stay within 100 tests. Use this skill whenever a test is added, changed, moved,
   merged or removed; whenever code in a test file moves so that the lines of its tests change; when deciding whether a
   new test is worth one of the 100 places; and when a test fails and its entry is needed to judge whether the failure
@@ -10,7 +10,7 @@ description: >-
 
 # TESTS.md
 
-`documentation/TESTS.md` lists every test, why it exists and where it is, so that no test is written twice and a
+`docs/TESTS.md` lists every test, why it exists and where it is, so that no test is written twice and a
 failure can be judged quickly (Rule 6). It is a list, not a story: no history, no reasons beyond the purpose.
 
 ## An entry

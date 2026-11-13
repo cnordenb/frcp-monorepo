@@ -1,7 +1,7 @@
 ---
 name: terminology
 description: >-
-  Add, change and order terms in documentation/TERMINOLOGY.md, the project's glossary. Use this skill when a change or
+  Add, change and order terms in docs/TERMINOLOGY.md, the project's glossary. Use this skill when a change or
   a discussion gives a name to something in the project (a part of the interface, a concept in the data, a kind of
   file or test); when a term comes to mean something else; when two words are being used for the same thing; and
   before writing questions, tests, log sections or names in the code that need a precise word.
@@ -9,7 +9,7 @@ description: >-
 
 # TERMINOLOGY.md
 
-`documentation/TERMINOLOGY.md` gives each thing in the project one name, so that the requirements, the tests, the log,
+`docs/TERMINOLOGY.md` gives each thing in the project one name, so that the requirements, the tests, the log,
 the guide and the code all mean the same by it (Rule 9).
 
 ## Its form
@@ -40,7 +40,7 @@ term - what it is, in a phrase, with an example where it helps, e.g. "Expand all
 Every line within 120 characters:
 
 ```
-awk 'length($0) > 120 { print FILENAME ":" NR ": " length($0) }' documentation/TERMINOLOGY.md
+awk 'length($0) > 120 { print FILENAME ":" NR ": " length($0) }' docs/TERMINOLOGY.md
 ```
 
 Then read each line and check that every term in it is defined above. Name the terms added or changed in the log

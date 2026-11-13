@@ -1,0 +1,70 @@
+#optionsBig { left: 66px; top: 54px; width: 72px; height: 72px; }
+#civIcon { left: 217px; top: 165px; width: 104px; height: 104px; }
+#civName { left: 169px; top: 273px; width: 200px; text-align: center; font-size: 13px; font-weight: 600; }
+#drawBtn { left: 217px; top: 305px; width: 100px; height: 30px; }
+#resetBtn { left: 10px; top: 471px; width: 100px; height: 30px; }
+.client[data-tab="1"] #resetBtn { left: 217px; }
+#techBtn { left: 384px; top: 391px; width: 60px; height: 60px; }
+#shareBtn { left: 249px; top: 385px; width: 37px; height: 37px; }
+#roundCounter { left: 456px; top: 484px; width: 60px; text-align: right; }
+#drawnCount { left: 10px; top: 32px; }
+#clearLogBtn { left: 110px; top: 25px; width: 100px; height: 30px; }
+#drawnLog { left: 10px; top: 60px; width: 198px; height: 441px; }
+#remainingCount { left: 327px; top: 32px; }
+#showRemainingLabel { left: 457px; top: 30px; height: 20px; }
+#remainingLog { left: 327px; top: 60px; width: 202px; height: 441px; }
+.edition {
+  display: flex; align-items: center; gap: 4px; width: 175px; height: 28px; font: inherit; color: #000;
+  text-align: left; white-space: nowrap;
+}
+.ed-icon { position: relative; flex: none; width: 28px; height: 28px; }
+.edition[aria-pressed="true"] { font-weight: 600; }
+:root:not([data-simple]) .edition:hover .ed-icon { --look: 1; }
+:root:not([data-simple]) :is(.edition:active, .edition[aria-pressed="true"]) .ed-icon { --look: 2; }
+#editionIcon { left: 200px; top: 30px; width: 128px; height: 93px; }
+#enabledCount { left: 210px; top: 140px; }
+#autoToggleLabel { left: 10px; top: 180px; height: 20px; }
+.civ { width: 102px; height: 20px; }
+:root:not([data-simple]) .icon-chk input {
+  position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;
+}
+.chk-icon { position: relative; flex: none; }
+.chk-icon > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.chk-off { visibility: hidden; transform: scale(.9); }
+:root:not([data-simple]) .chk-off { background: url("../assets/ui/controls/off.webp") center / contain no-repeat; }
+.icon-chk input:not(:checked) ~ .chk-icon .chk-face { filter: grayscale(1); }
+.icon-chk input:not(:checked) ~ .chk-icon .chk-off { visibility: visible; }
+.icon-chk input:focus-visible ~ .chk-icon { outline: 1px dotted #000; outline-offset: 1px; }
+:root:not([data-simple]) .civ { gap: 2px; }
+.icon-chk input:checked ~ .chk-name { font-weight: 600; }
+.icon-chk input:not(:checked) ~ .chk-name {
+  font-style: italic; text-decoration: line-through; text-decoration-thickness: 2px;
+}
+#enableAllBtn { left: 10px; top: 470px; width: 100px; height: 30px; }
+#disableAllBtn { left: 125px; top: 470px; width: 100px; height: 30px; }
+#autoResetLabel { left: 240px; top: 480px; height: 20px; }
+#poolShareBtn { left: 487px; top: 466px; width: 37px; height: 37px; }
+:root:not([data-simple]) .civ:hover { background: #dccb70; }
+:root:not([data-simple]) .civ:hover:has(input:not(:checked)) { background: #dc6a5c; }
+
+:root:not([data-simple]) .simple { display: none !important; }
+
+#app { position: relative; }
+#toast {
+  position: absolute; z-index: 5; top: 100%; left: 50%; margin-top: 14px; transform: translateX(-50%);
+  padding: 5px 12px; border-radius: 3px; background: #2b2b2b; color: #fff; white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .3); pointer-events: none; opacity: 0; transition: opacity .15s;
+}
+#toast.show { opacity: 1; }
+
+#tip {
+  position: fixed; z-index: 100; max-width: 300px; padding: 3px 7px 4px;
+  background: #fff; color: #575757; border: 1px solid #767676; box-shadow: 1px 1px 3px rgba(0, 0, 0, .18);
+  font: 12px/1.35 var(--ui); white-space: pre-line; pointer-events: none;
+}
+:root:not([data-simple]) #tip { background: #d7b394; color: #391c1b; }
+:root:not([data-simple]) #tip.ext::before {
+  content: ""; display: inline-block; width: 12px; height: 12px; margin-right: 4px; vertical-align: -1px;
+  background: url("../assets/ui/icons/external.webp") center / contain no-repeat;
+  filter: brightness(.15) hue-rotate(-54deg) saturate(3.1);
+}

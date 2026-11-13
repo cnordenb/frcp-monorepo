@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fresh Random Civ Picker (simple)</title>
+</head>
+<body>
+<noscript>Fresh Random Civ Picker needs JavaScript.</noscript>
+<script>
+  fetch("../index.html")
+    .then((r) => {
+      if (!r.ok) throw new Error(r.status);
+      return r.text();
+    })
+    .then((html) => {
+      html = html
+        .replace('<html lang="en">', '<html lang="en" data-simple>')
+        .replace("<head>", '<head><base href="../">')
+        .replace("<title>Fresh Random Civ Picker</title>", "<title>Fresh Random Civ Picker (simple)</title>")
+        .replace(
+          '<link rel="stylesheet" href="styles/phone.css">',
+          '<link rel="stylesheet" href="styles/phone.css"><link rel="stylesheet" href="styles/simple.css">'
+        )
+        .replace(/ src="assets\//g, ' data-src="assets/');
+      document.open();
+      document.write(html);
+      document.close();
+    })
+    .catch(() => {
+      const p = document.createElement("p");
+      p.textContent = "Fresh Random Civ Picker couldn't load. Check your connection, then reload the page.";
+      document.body.append(p);
+    });
+</script>
+</body>
+</html>

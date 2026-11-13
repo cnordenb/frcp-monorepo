@@ -9,5 +9,5 @@ Checklist before submitting PR:
 - All tests pass.
 - `bash .github/scripts/check-rules.sh` passes.
 - Your change works (try it yourself, not only through the tests).
-- Your change is recorded in the development log, as [MAINTAINER.md](../documentation/MAINTAINER.md) describes.
+- Your change is recorded in the development log, as [MAINTAINER.md](../docs/MAINTAINER.md) describes.
 - If you delegated any work to an AI agent, read and review it yourself and make sure you approve.

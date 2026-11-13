@@ -14,7 +14,7 @@ whole.
    - If today's day alone, with the new section, would be over 1000 lines, Rules 18 and 22 cannot both be kept. Do not
      split the day. Write the section in the new part anyway, and ask under Questions how the chief developer wants it
      handled.
-3. **Write the new part**, `documentation/DEVLOG/DEVLOG<n+1>.md`, starting:
+3. **Write the new part**, `docs/DEVLOG/DEVLOG<n+1>.md`, starting:
 
    ```markdown
    # Development log, part <n+1>
@@ -37,9 +37,9 @@ whole.
      `DEVLOG<n+1>.md#<anchor>`.
    - In the moved day, a link `(#<anchor>)` to a section that stayed in part `n` becomes `(DEVLOG<n>.md#<anchor>)`.
    - In part `n`, a link `(#<anchor>)` to a moved section becomes `(DEVLOG<n+1>.md#<anchor>)`.
-   - Search for them with `grep -rn 'DEVLOG<n>.md#' documentation` and `grep -n '](#' documentation/DEVLOG/DEVLOG<n>.md`.
+   - Search for them with `grep -rn 'DEVLOG<n>.md#' docs` and `grep -n '](#' docs/DEVLOG/DEVLOG<n>.md`.
 6. **Check.** `bash .github/scripts/check-rules.sh` checks the numbering of the parts, their first lines, their lists
    of days, the links between neighbouring parts and that no day is in two parts. Then record the new part in the
    section's **Documents.** point.
 
-`documentation/DEVLOG/` is exempt from Rule 14, so it may hold as many parts as the log needs.
+`docs/DEVLOG/` is exempt from Rule 14, so it may hold as many parts as the log needs.

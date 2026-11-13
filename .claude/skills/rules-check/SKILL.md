@@ -1,7 +1,7 @@
 ---
 name: rules-check
 description: >-
-  Check the whole project against documentation/RULES.md and documentation/REQUIREMENTS.md, mend what breaks them,
+  Check the whole project against docs/RULES.md and docs/REQUIREMENTS.md, mend what breaks them,
   and report every breach with its evidence. Use this skill when asked whether the project follows its rules or
   requirements, to check compliance or audit the project; after a large change, a refactor or a change of many files;
   after RULES.md or REQUIREMENTS.md has changed; and when a rule seems to contradict another rule or a requirement.

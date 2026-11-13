@@ -1,7 +1,7 @@
 ---
 name: maintainer-guide
 description: >-
-  Keep documentation/MAINTAINER.md, the guide that teaches a human how to maintain the project, true, short and
+  Keep docs/MAINTAINER.md, the guide that teaches a human how to maintain the project, true, short and
   beginner-friendly. Use this skill whenever a change adds, removes, renames or moves a file or folder; changes how the
   code is organised, built, run, tested or released; changes the steps of the most common maintenance task; or would
   otherwise have needed a comment in the code to be understood. Also use it when asked to explain the code to a
@@ -10,7 +10,7 @@ description: >-
 
 # MAINTAINER.md
 
-`documentation/MAINTAINER.md` teaches someone who did not write the project how to keep it working (Rule 7), with as
+`docs/MAINTAINER.md` teaches someone who did not write the project how to keep it working (Rule 7), with as
 few steps as possible (Rule 3). Rule 10 forbids comments in the code, so what a comment would have said goes here.
 
 ## Its form (Rule 8)

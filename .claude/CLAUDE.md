@@ -1,6 +1,6 @@
-@AGENTS.md
+@../AGENTS.md
 
-@documentation/RULES.md
+@../docs/RULES.md
 
 ## Claude Code
 

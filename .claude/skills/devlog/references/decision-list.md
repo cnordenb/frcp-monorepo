@@ -1,6 +1,6 @@
 # DECISIONS.md
 
-`documentation/DECISIONS.md` lists every decision made in the log, by subject, so that nobody has to read the whole
+`docs/DECISIONS.md` lists every decision made in the log, by subject, so that nobody has to read the whole
 log to learn what holds now (Rule 23).
 
 ## Its form

@@ -1,0 +1,50 @@
+:root[data-platform="desktop"]:not([data-simple]), :root[data-platform="desktop"]:not([data-simple]) body {
+  background: transparent !important;
+}
+:root[data-platform="desktop"]:not([data-simple]) body { min-width: 0 !important; overflow: hidden; }
+:root[data-platform="desktop"]:not([data-simple]) dialog::backdrop { background: transparent !important; }
+:root[data-platform="desktop"] .site-title { display: none !important; }
+:root[data-platform="desktop"] .titlebar { -webkit-app-region: drag; }
+:root[data-platform="desktop"] .titlebar button { -webkit-app-region: no-drag; }
+
+:root[data-platform="desktop"] #historyBtn { left: 385px; top: 60px; width: 83px; height: 60px; --cols: 1; --rows: 1; }
+:root[data-platform="desktop"] #historyBtn:hover { filter: brightness(1.12); }
+:root[data-platform="desktop"] #historyBtn:active { filter: brightness(.88); }
+:root[data-platform="desktop"]:not([data-simple]) #sustainBtn {
+  left: 90px; top: 391px; width: 60px; height: 60px;
+  border: 6px solid transparent; border-image: url("../assets/ui/buttons/button_9slice.webp") 6 fill repeat;
+}
+:root[data-platform="desktop"]:not([data-simple]) #sustainBtn:active {
+  border-image-source: url("../assets/ui/buttons/button_pressed_9slice.webp");
+}
+:root[data-platform="desktop"] .sustain-icon {
+  position: absolute; inset: 0; background: var(--icon) center / 48px 48px no-repeat; image-rendering: pixelated;
+}
+:root[data-platform="desktop"] #sustainBtn:active .sustain-icon { transform: translate(1px, -1px); }
+
+:root[data-platform="desktop"] dialog input[type="radio"] {
+  appearance: none; -webkit-appearance: none; flex: none; width: 14px; height: 14px; margin: 0 1px;
+  border: 2px solid #3d2c1c; border-radius: 50%; background: #d7b394; cursor: var(--hand, pointer);
+}
+:root[data-platform="desktop"] dialog input[type="radio"]:checked {
+  background: radial-gradient(circle, #3d2c1c 0 3px, #d7b394 3.5px);
+}
+:root[data-platform="desktop"] dialog input[type="radio"]:focus-visible {
+  outline: 1px dotted #000; outline-offset: 1px;
+}
+
+:root[data-platform="desktop"] .customise { min-width: 652px; }
+:root[data-platform="desktop"] .key-sections { gap: 16px; margin-bottom: 12px; }
+:root[data-platform="desktop"] .key-rows {
+  display: grid; grid-auto-flow: column; grid-template-rows: repeat(var(--rows, 12), 24px);
+  grid-auto-columns: max-content; column-gap: 28px; min-height: 288px; margin-bottom: 8px;
+}
+:root[data-platform="desktop"] .key-row { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+:root[data-platform="desktop"] .dlg-body .key-btn {
+  flex: none; width: 100px; min-width: 100px; height: 22px; padding: 0 4px; overflow: hidden;
+  font: 12px var(--ui); text-overflow: ellipsis;
+}
+:root[data-platform="desktop"]:not([data-simple]) .dlg-body .key-btn.listening {
+  background-image: url("../assets/ui/buttons/button_pressed.webp"); color: #d7ca15;
+}
+:root[data-platform="desktop"] .dlg-body .key-status { min-height: 17px; margin: 0; }

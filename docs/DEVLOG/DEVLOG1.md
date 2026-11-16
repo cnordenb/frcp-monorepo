@@ -1,6 +1,7 @@
 # Development log, part 1
 
 - [2026-11-13](#2026-11-13)
+- [2026-11-16](#2026-11-16)
 
 Part 1 of the development log. The decisions made in the log are listed in [DECISIONS.md](../DECISIONS.md).
 
@@ -227,3 +228,51 @@ Part 1 of the development log. The decisions made in the log are listed in [DECI
    them, and try 27 when it leaves alpha.
 2. **A check on every push.** Should `checks.yml` run `npm audit` and fail on a vulnerability? It would catch new
    faults early, but would also fail a push that changed nothing when a new fault is published. Proposal: yes.
+
+## 2026-11-16
+
+### 20:58:24: the Android app built from the command line, without Android Studio
+
+#### What changed
+
+- **Why.** No Android app had been built since the port (Not done of 02:48:27, 2026-11-13), and `MOBILE.md` said
+  Android Studio was needed. It is not: Gradle builds the app with only the Android SDK and a JDK, as the Kotlin app
+  was built.
+- **The build.** The SDK was installed with Google's Android CLI: `platforms/android-36`, `build-tools/35.0.0` and
+  `platform-tools`. JDK 21 (Temurin 21.0.13) was installed, its SHA-256 checked against Adoptium's. Then
+  `npm run mobile`, `node src/mobile/android-project.ts` and `./gradlew assembleDebug` in `android/` ran, with
+  `ANDROID_HOME` and `JAVA_HOME` set, and wrote `android/app/build/outputs/apk/debug/app-debug.apk`.
+- **The version.** In `android/app/build.gradle`, `versionCode` 1 became 2 and `versionName` "1.0" became "2.0.0".
+  The Kotlin app had the same ID, `net.frcp.app`, with `versionCode` 1, so a phone takes the new app as its update.
+- **What JDK 21 is for.** Gradle 8.14.3 runs on Java 27 too, but `@capacitor/filesystem` asks Gradle for a Java 21
+  toolchain, and the build fails where it finds none.
+- **Checked.** "BUILD SUCCESSFUL", and the APK is 12,043,978 bytes. `aapt dump badging`: `net.frcp.app`,
+  `versionCode` 2, `versionName` 2.0.0, minimum SDK 24, target 36, the name "Fresh Random Civ Picker". Its manifest
+  has the `https://frcp.net` link filter with `autoVerify`, and portrait. `apksigner verify` passes, and the
+  certificate's SHA-256 is that of the Kotlin app's APKs: both are signed with the same debug key. With Java 27 and
+  Gradle's search for other JDKs turned off, the build failed with "Cannot find a Java installation"; without
+  `ANDROID_HOME` it failed with "SDK location not found". All 100 tests passed, and `check-rules.sh` passed.
+- **Documents.** `MOBILE.md`, "Build the Android app": the SDK, JDK 21 and the two environment variables as steps of
+  their own, before the others; what `versionCode` must be; the build's last line; what to do about the two messages.
+  Android Studio is now only another way. `DECISIONS.md`.
+
+#### Not done
+
+- **The app was not installed or run** on a phone or in an emulator. The share sheet, saving to Documents, links from
+  other apps, the back button and the phone layout in Android's WebView are still unproven.
+- **Only a debug APK was built.** It is signed with the debug key in `~/.android/debug.keystore` of the machine it was
+  built on. A release needs a signing key of its own, whose fingerprint frcp.net's `assetlinks.json` would name.
+- **The version lives outside Git**, in `android/`, which is generated. If the folder is made again, step 8 of
+  `MOBILE.md` has to be done again. See Question 1.
+- `ANDROID_HOME` and `JAVA_HOME` were set for the build commands only, not for the machine.
+- No test was added: no requirement or rule speaks of how the app is built.
+
+#### Questions
+
+1. **The Android app's version.** It is typed by hand into `android/app/build.gradle`, which Git leaves out, while
+   the other platforms take theirs from `package.json`. Should `android-project.ts` write `versionName` from
+   `package.json`, and a `versionCode` made from it (2.0.0 as 20000)? Proposal: yes, which takes a step out of
+   `MOBILE.md` (Rule 3).
+2. **A release key.** Which key should sign the released app? The Kotlin app's APKs, its release APK too, were signed
+   with a debug key, so a release with a new key would not install over them. Proposal: make a release key now, keep
+   it outside the repository, and accept that users of the Kotlin app reinstall once.

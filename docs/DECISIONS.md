@@ -55,8 +55,10 @@ an earlier one, the earlier one is named after it, with its own link.
 - **No compile step.** Node.js runs the `.ts` files as they are, so the code uses only syntax that can be stripped;
   esbuild bundles each platform's site into `dist/`, which is not kept in the repository.
   [2026-11-13 02:48:27](DEVLOG/DEVLOG1.md#024827-the-web-desktop-and-mobile-pickers-in-one-repository-in-typescript)
-- **One version for the three platforms, 2.0.0**; the question is put to the chief developer.
+- **One version for the three platforms, 2.0.0**; the question is put to the chief developer. The Android app's
+  `versionCode` is 2, above the Kotlin app's 1, so that a phone takes it as that app's update.
   [2026-11-13 02:48:27](DEVLOG/DEVLOG1.md#024827-the-web-desktop-and-mobile-pickers-in-one-repository-in-typescript)
+  [2026-11-16 20:58:24](DEVLOG/DEVLOG1.md#205824-the-android-app-built-from-the-command-line-without-android-studio)
 - **The main folder holds 8 files.** `documentation/` became `docs/`, `CLAUDE.md` moved to `.claude/`, and
   `tsconfig.json` is in `src/`.
   [2026-11-13 02:48:27](DEVLOG/DEVLOG1.md#024827-the-web-desktop-and-mobile-pickers-in-one-repository-in-typescript)
@@ -84,3 +86,6 @@ an earlier one, the earlier one is named after it, with its own link.
 - **Each platform has a guide of its own**, `docs/web/WEB.md`, `docs/desktop/DESKTOP.md` and
   `docs/mobile/MOBILE.md`; `MAINTAINER.md` covers what they share, and its first chapter is "Add a new civ".
   [2026-11-13 02:48:27](DEVLOG/DEVLOG1.md#024827-the-web-desktop-and-mobile-pickers-in-one-repository-in-typescript)
+- **`MOBILE.md` builds the Android app from the command line**: the Android SDK, JDK 21, `ANDROID_HOME` and
+  `JAVA_HOME`, then Gradle. Android Studio is named only as another way.
+  [2026-11-16 20:58:24](DEVLOG/DEVLOG1.md#205824-the-android-app-built-from-the-command-line-without-android-studio)

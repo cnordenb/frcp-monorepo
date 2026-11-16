@@ -10,18 +10,30 @@ kept in the repository.
 
 ## Build the Android app
 
-You need Android Studio with an Android SDK and its JDK, and Node.js 24 or newer.
+You need Node.js 24 or newer, the Android SDK and JDK 21. Android Studio is not needed, though it can install both.
 
-1. **Install the packages**, once: `npm ci`.
-2. **Generate the Android project**, once: `npx cap add android`. It creates the folder `android/`, which Git leaves
+1. **Install the Android SDK**, once. With Google's Android CLI:
+   `android sdk install platforms/android-36 build-tools/35.0.0 platform-tools`. It puts the SDK in
+   `%LOCALAPPDATA%\Android\Sdk` and accepts its licence.
+2. **Install JDK 21**, once, such as Temurin 21 from [adoptium.net](https://adoptium.net/). Gradle runs on a newer
+   Java too, but `@capacitor/filesystem` is compiled with Java 21.
+3. **Tell Gradle where they are:** set the environment variables `ANDROID_HOME` to the SDK's folder and `JAVA_HOME`
+   to JDK 21's folder.
+4. **Install the packages**, once: `npm ci`.
+5. **Generate the Android project**, once: `npx cap add android`. It creates the folder `android/`, which Git leaves
    out. If you delete the folder, start again from this step.
-3. **Make the project the picker's:** `node src/mobile/android-project.ts`. It adds the frcp.net link filter, locks
+6. **Make the project the picker's:** `node src/mobile/android-project.ts`. It adds the frcp.net link filter, locks
    the screen to portrait, installs the launcher icon from `assets/launcher/` and lets Gradle accept a path with
    letters such as `ö`. Running it again changes nothing more.
-4. **Build the site and hand it to the project:** `npm run mobile`. Do this again after every change to the code.
-5. **Set the version** in `android/app/build.gradle`: `versionCode` and `versionName`.
-6. **Build the app:** `npx cap open android` opens Android Studio, where Build > Build APK(s) makes the app; or run
-   `./gradlew assembleDebug` in `android/`, which writes `android/app/build/outputs/apk/debug/app-debug.apk`.
+7. **Build the site and hand it to the project:** `npm run mobile`. Do this again after every change to the code.
+8. **Set the version** in `android/app/build.gradle`: `versionName`, and a `versionCode` higher than that of the app
+   it is to update on a phone. The Kotlin app was 1.0.0, with `versionCode` 1.
+9. **Build the app:** `./gradlew assembleDebug` in `android/` (`gradlew.bat` outside Git Bash). It ends with
+   "BUILD SUCCESSFUL" and writes `android/app/build/outputs/apk/debug/app-debug.apk`. In Android Studio,
+   `npx cap open android` and Build > Build APK(s) do the same.
+   - "SDK location not found": `ANDROID_HOME` is not set, or not to the SDK. Set it, and open a new terminal.
+   - "Cannot find a Java installation on your machine ... matching: {languageVersion=21": JDK 21 is not installed,
+     or Gradle does not find it. Set `JAVA_HOME` to it.
 
 ## What only the mobile app has
 

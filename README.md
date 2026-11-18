@@ -4,6 +4,8 @@
 [![testing](https://img.shields.io/badge/testing-yes-C3FF00)](docs/TESTS.md)
 [![maintainable](https://img.shields.io/badge/maintainable-yes-00FF72)](docs/MAINTAINER.md)
 
+# NB: this mono-repo is no longer maintained due to abysmal startup times of TypeScript compared to C++. For desktop, see [C++ version](https://github.com/cnordenb/Fresh-Random-Civ-Picker_GUI). For web, see [JavaScript version](https://github.com/cnordenb/frcp.net). For mobile, see [Kotlin version](https://github.com/cnordenb/frcp_mobile).
+
 # Fresh Random Civ Picker
 
 ## Description

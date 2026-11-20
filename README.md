@@ -1,10 +1,9 @@
-[![GitHub last commit](https://img.shields.io/github/last-commit/cnordenb/Fresh-Random-Civ-Picker)](#)
-[![language](https://img.shields.io/badge/language-TypeScript-FFFF00)](#)
-[![license](https://img.shields.io/badge/license-MIT-007FFF)](LICENSE)
-[![testing](https://img.shields.io/badge/testing-yes-C3FF00)](docs/TESTS.md)
-[![maintainable](https://img.shields.io/badge/maintainable-yes-00FF72)](docs/MAINTAINER.md)
-
-# NB: this mono-repo is no longer maintained due to abysmal startup times of TypeScript compared to C++. For desktop, see [C++ version](https://github.com/cnordenb/Fresh-Random-Civ-Picker_GUI). For web, see [JavaScript version](https://github.com/cnordenb/frcp.net). For mobile, see [Kotlin version](https://github.com/cnordenb/frcp_mobile).
+> [!WARNING]
+> This monorepository is abandoned and no longer maintained.  
+> The absurd load time of TypeScript-compiled desktop app is not worth the convenience of a mono-repo.  
+> FRCP desktop: https://github.com/cnordenb/frcp-desktop  
+> FRCP web: https://github.com/cnordenb/frcp.net  
+> FRCP mobile: https://github.com/cnordenb/frcp-mobile  
 
 # Fresh Random Civ Picker
 
